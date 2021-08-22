@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://json-schema.org/draft-07/schema#",
+    "title": "Git Properties",
+    "description": "Information about the build.",
+    "type": "object",
+    "properties": {
+        "git.branch": {
+            "type": "string"
+        },
+        "git.build.host": {
+            "type": "string"
+        },
+        "git.build.time": {
+            "type": "string"
+        },
+        "git.build.version": {
+            "type": "string"
+        },
+        "git.closest.tag.commit.count": {
+            "type": "string"
+        },
+        "git.closest.tag.name": {
+            "type": "string"
+        },
+        "git.commit.author.time": {
+            "type": "string"
+        },
+        "git.commit.committer.time": {
+            "type": "string"
+        },
+        "git.commit.id.abbrev": {
+            "type": "string"
+        },
+        "git.commit.id.describe": {
+            "type": "string"
+        },
+        "git.commit.id.describe-short": {
+            "type": "string"
+        },
+        "git.commit.id.full": {
+            "type": "string"
+        },
+        "git.commit.time": {
+            "type": "string"
+        },
+        "git.dirty": {
+            "type": "string"
+        },
+        "git.local.branch.ahead": {
+            "type": "string"
+        },
+        "git.local.branch.behind": {
+            "type": "string"
+        },
+        "git.remote.origin.url": {
+            "type": "string"
+        },
+        "git.tags": {
+            "type": "string"
+        },
+        "git.total.commit.count": {
+            "type": "string"
+        }
+    }
+}

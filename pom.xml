@@ -1,0 +1,281 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+  
+    <groupId>io.github.stevenjdh</groupId>
+    <artifactId>simple-ssl</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <name>Simple SSL</name>
+    <description>Easily create SSLContext instances from KeyStore and PEM files.</description>
+    <url>https://github.com/StevenJDH</url>
+  
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+  
+    <developers>
+        <developer>
+            <name>Steven Jenkins De Haro</name>
+            <organization>StevenJDH</organization>
+            <organizationUrl>https://github.com/StevenJDH</organizationUrl>
+            <timezone>UTC+02:00</timezone>
+        </developer>
+    </developers>
+ 
+    <scm>
+        <connection>scm:git:git://github.com/StevenJDH/simple-ssl.git</connection>
+        <developerConnection>scm:git:git@github.com:StevenJDH/simple-ssl.git</developerConnection>
+        <url>https://github.com/StevenJDH/simple-ssl</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/StevenJDH/simple-ssl/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Github</system>
+        <url>https://github.com/StevenJDH/simple-ssl/actions</url>
+    </ciManagement>
+    
+    <properties>
+        <java.version>16</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+        <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+        <!-- JaCoCo Properties -->
+        <jacoco.version>0.8.7</jacoco.version>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.language>java</sonar.language>
+        <!-- SonarCloud Links -->
+        <sonar.links.homepage>https://github.com/StevenJDH/simple-ssl</sonar.links.homepage>
+        <sonar.links.ci>https://github.com/StevenJDH/simple-ssl/actions</sonar.links.ci>
+        <sonar.links.issue>https://github.com/StevenJDH/simple-ssl/issues</sonar.links.issue>
+        <sonar.links.scm>https://github.com/StevenJDH/simple-ssl</sonar.links.scm>
+    </properties>
+    
+    <dependencies>
+        <!-- Required for jsonschema2pojo-maven-plugin -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <!-- Required for jsonschema2pojo-maven-plugin -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.20.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>2.27.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>3.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+  
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <!-- Excluding generated resource, which is recommended. -->
+                        <exclude>**/*stevenjdh/simple/git/GitProperties.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>PACKAGE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.0</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>5.0.0</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                    <execution>
+                        <id>validate-the-git-infos</id>
+                        <goals>
+                            <goal>validateRevision</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <!-- Valid options are 'json' and 'properties'. -->
+                    <format>json</format>
+                    <!-- Set <commitIdGenerationMode> to 'full' not 'flat' if <format> is set to 'json'. -->
+                    <commitIdGenerationMode>full</commitIdGenerationMode>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                    <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
+                    <dateFormatTimeZone>UTC</dateFormatTimeZone>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <offline>true</offline>
+                    <!-- <includeOnlyProperties>
+                    </includeOnlyProperties> -->
+                    <excludeProperties>
+                        <excludeProperty>git.user.*</excludeProperty>
+                        <excludeProperty>^git.build.user.(email|name)$</excludeProperty>
+                        <excludeProperty>^git.commit.user.(email|name)$</excludeProperty>
+                        <excludeProperty>^git.commit.message.(short|full)$</excludeProperty>
+                    </excludeProperties>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                    <validationProperties>
+                        <!-- Verify that the project version does not end with '-SNAPSHOT'. -->
+                        <!-- May need <injectAllReactorProjects> set to 'true' to read POM. -->
+                        <validationProperty>
+                            <name>validating project version</name>
+                            <value>${project.version}</value>
+                            <!-- We could also use: <shouldMatchTo>^[0-9\.]*$</shouldMatchTo> -->
+                            <shouldMatchTo><![CDATA[^.*(?<!-SNAPSHOT)$]]></shouldMatchTo>
+                        </validationProperty>
+                    </validationProperties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <sourceDirectory>${project.basedir}/src/main/resources/schema</sourceDirectory>
+                    <targetPackage>io.github.stevenjdh.simple.git</targetPackage>
+                    <includeAdditionalProperties>false</includeAdditionalProperties>
+                    <includeToString>false</includeToString>
+                    <usePrimitives>true</usePrimitives>
+                    <includeSetters>false</includeSetters>
+                    <includeGetters>true</includeGetters>
+                    <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+                    <useTitleAsClassname>true</useTitleAsClassname>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>sonatype</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>github</id>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/stevenjdh/simple-ssl</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+    
+</project>

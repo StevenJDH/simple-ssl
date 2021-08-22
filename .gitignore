@@ -1,0 +1,61 @@
+# My additional ignores
+/[Rr]esources/
+/*.wiki
+/[Ss]etups/
+
+### Maven ###
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+nb-configuration.xml
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Visual Studio Code ###
+.vscode/
+
+### Eclipse ###
+.project
+.classpath
+.settings/
+bin/
+
+### OSX ###
+.DS_Store
+
+### Vim ###
+*.swp
+*.swo
+
+### patch ###
+*.orig
+*.rej
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
