@@ -1,6 +1,17 @@
 # Simple SSL
 
+[![build](https://github.com/StevenJDH/simple-ssl/actions/workflows/maven-sonar-workflow.yml/badge.svg?branch=main)](https://github.com/StevenJDH/simple-ssl/actions/workflows/maven-sonar-workflow.yml)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/StevenJDH/simple-ssl?include_prereleases)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/48f1f6d78ce04a269402694189199fa3)](https://www.codacy.com/gh/StevenJDH/simple-ssl/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StevenJDH/simple-ssl&amp;utm_campaign=Badge_Grade)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=alert_status)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=sqale_index)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Sonar Violations (long format)](https://img.shields.io/sonar/violations/StevenJDH_simple-ssl?format=long&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=security_rating)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=coverage)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=ncloc)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 ![Maintenance](https://img.shields.io/maintenance/yes/2021)
 ![GitHub](https://img.shields.io/github/license/StevenJDH/simple-ssl)
 
