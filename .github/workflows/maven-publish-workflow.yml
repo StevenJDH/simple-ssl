@@ -1,0 +1,58 @@
+name: 'publish maven package'
+
+on:
+  release:
+    types: [created]
+
+env:
+  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up OpenJDK 16
+        uses: actions/setup-java@v2
+        with:
+          java-version: 16
+          distribution: 'adopt-hotspot'
+          architecture: x64
+
+      - name: Build with Maven
+        run: chmod +x ./mvnw && ./mvnw package
+
+      - name: Publish to GitHub Packages
+        run: ./mvnw -DskipTests deploy -Pgithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Running again to overwrite previous settings.xml used by GitHub Packages.
+      - name: Set up Apache Maven Central
+        uses: actions/setup-java@v2
+        with:
+          java-version: 16
+          distribution: 'adopt-hotspot'
+          architecture: x64
+          # Matches pom.xml field for distributionManagement/repository/id.
+          server-id: ossrh
+          # env variable for username in deploy.
+          server-username: OSSRH_USERNAME
+          # env variable for token in deploy.
+          server-password: OSSRH_TOKEN
+          # Value of the GPG private key to import.
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          # env variable for GPG private key passphrase.
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - name: Publish to Apache Maven Central
+        run: ./mvnw -DskipTests deploy -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} -Psonatype
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
