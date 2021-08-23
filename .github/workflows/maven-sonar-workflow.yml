@@ -16,6 +16,9 @@ on:
     - '*.png'
     types: [opened, synchronize, reopened] # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request
 
+env:
+  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version
+
 jobs:
   build:
     name: Build
