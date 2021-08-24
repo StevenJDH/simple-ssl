@@ -9,6 +9,7 @@
     <name>Simple SSL</name>
     <description>Easily create SSLContext instances from KeyStore and PEM files.</description>
     <url>https://github.com/StevenJDH/simple-ssl</url>
+    <inceptionYear>2021</inceptionYear>
   
     <licenses>
         <license>
