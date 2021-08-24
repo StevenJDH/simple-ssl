@@ -20,7 +20,6 @@ package io.github.stevenjdh.simple.ssl;
 import io.github.stevenjdh.simple.git.BuildInfo;
 import io.github.stevenjdh.simple.git.GitProperties;
 import javax.net.ssl.SSLContext;
-import java.io.IOException;
 import java.nio.file.Path;
 
 public abstract class SimpleSSLContext {
@@ -64,7 +63,7 @@ public abstract class SimpleSSLContext {
         return new PEMContextBuilderImpl();
     }
     
-    public static GitProperties getBuildInfo() throws IOException {
+    public static GitProperties getBuildInfo() {
         return new BuildInfo().getGitProperties();
     }
 }

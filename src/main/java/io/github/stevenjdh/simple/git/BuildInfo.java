@@ -20,15 +20,18 @@ package io.github.stevenjdh.simple.git;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 public final class BuildInfo {
 
-    public GitProperties getGitProperties() throws IOException {
+    public GitProperties getGitProperties() {
         final var mapper = new ObjectMapper();
 
         try (var is = getClass().getClassLoader()
                 .getResourceAsStream("git.properties")) {
             return mapper.readValue(is, GitProperties.class);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex.getMessage(), ex);
         }
     }
 }
