@@ -30,6 +30,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import io.github.stevenjdh.simple.exceptions.GenericKeyStoreException;
 import java.nio.file.Path;
+import java.security.UnrecoverableKeyException;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
 
 final class SimpleSSLContextImpl extends SimpleSSLContext {
 
@@ -70,32 +74,57 @@ final class SimpleSSLContextImpl extends SimpleSSLContext {
     
     private SSLContext createSSLContext() {
         try {
-            //var kmf = KeyManagerFactory.getInstance("SunX509");
-            var tmf = TrustManagerFactory.getInstance("SunX509");
-            //var keyStore = getKeyStore(keyStorePath, keyStorePassword);
-            var trustStore = getKeyStore(trustStoreType,trustStorePath, trustStorePassword);
+            var keyManagers = getKeyManagers(keyStoreType, keyStorePath, keyStorePassword);
+            var trustManagers = getTrustManagers(trustStoreType, trustStorePath, trustStorePassword);
             var context = SSLContext.getInstance("TLSv1.3");
-
-            //kmf.init(keyStore, keyStorePassword);
-            tmf.init(trustStore);
-            context.init(null/*kmf.getKeyManagers()*/, tmf.getTrustManagers(), new SecureRandom());
+            context.init(keyManagers, trustManagers, new SecureRandom());
             
             return context;
         } catch (GeneralSecurityException ex) {
-            throw new GenericKeyStoreException(new GeneralSecurityException(ex));
+            throw new GenericKeyStoreException(ex.getMessage(), ex);
         } catch (IOException ex) {
-            throw new UncheckedIOException(new IOException(ex));
+            throw new UncheckedIOException(ex.getMessage(), ex);
         }
     }
     
-    private static KeyStore getKeyStore(KeyStoreType storeType, Path storePath, char[] certPassword) 
+    private static KeyManager[] getKeyManagers(KeyStoreType storeType, Path storePath, 
+            char[] storePassword) throws NoSuchAlgorithmException, KeyStoreException, 
+            IOException, CertificateException, UnrecoverableKeyException {
+        
+        if (storePath == null) {
+            return new KeyManager[0];
+        }
+        
+        var kmf = KeyManagerFactory.getInstance("SunX509");
+        var keyStore = getKeyStore(storeType, storePath, storePassword);
+        kmf.init(keyStore, storePassword);
+        
+        return kmf.getKeyManagers();
+    }
+    
+    private static TrustManager[] getTrustManagers(KeyStoreType storeType, Path storePath, 
+            char[] storePassword) throws NoSuchAlgorithmException, KeyStoreException, 
+            IOException, CertificateException {
+        
+        if (storePath == null) {
+            return new TrustManager[0];
+        }
+        
+        var tmf = TrustManagerFactory.getInstance("SunX509");
+        var trustStore = getKeyStore(storeType, storePath, storePassword);
+        tmf.init(trustStore);
+        
+        return tmf.getTrustManagers();
+    }
+    
+    private static KeyStore getKeyStore(KeyStoreType storeType, Path storePath, char[] storePassword) 
             throws KeyStoreException, IOException, NoSuchAlgorithmException, 
             CertificateException {
 
         var ks = KeyStore.getInstance(storeType.value);
 
         try ( var inputStream = new FileInputStream(storePath.toFile())) {
-            ks.load(inputStream, certPassword);
+            ks.load(inputStream, storePassword);
         }
 
         return ks;
