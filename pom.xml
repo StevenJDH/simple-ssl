@@ -264,6 +264,36 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[16.0,)</version>
+                                </requireJavaVersion>
+                                <requireJavaVendor>
+                                    <level>WARN</level>
+                                    <includes>
+                                        <include>AdoptOpenJDK</include>
+                                    </includes>
+                                </requireJavaVendor>
+                                <requireMavenVersion>
+                                    <level>WARN</level>
+                                    <version>[3.8.1,)</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     
