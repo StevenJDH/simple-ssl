@@ -97,9 +97,9 @@ final class PEMContextImpl implements PEMContext {
 
             return context;
         } catch (GeneralSecurityException ex) {
-            throw new GenericKeyStoreException(new GeneralSecurityException(ex));
+            throw new GenericKeyStoreException(ex.getMessage(), ex);
         } catch (IOException ex) {
-            throw new UncheckedIOException(new IOException(ex));
+            throw new UncheckedIOException(ex.getMessage(), ex);
         }
     }
 
