@@ -1,7 +1,9 @@
 # Simple SSL
 
 [![build](https://github.com/StevenJDH/simple-ssl/actions/workflows/maven-sonar-workflow.yml/badge.svg?branch=main)](https://github.com/StevenJDH/simple-ssl/actions/workflows/maven-sonar-workflow.yml)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/StevenJDH/simple-ssl?include_prereleases)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/StevenJDH/simple-ssl?include_prereleases&logo=github&logoColor=lightgrey)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.stevenjdh/simple-ssl?logo=java)](https://mvnrepository.com/artifact/io.github.stevenjdh/simple-ssl)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.stevenjdh/simple-ssl?logo=java&server=https%3A%2F%2Fs01.oss.sonatype.org)](https://s01.oss.sonatype.org/content/repositories/snapshots/io/github/stevenjdh/simple-ssl/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/48f1f6d78ce04a269402694189199fa3)](https://www.codacy.com/gh/StevenJDH/simple-ssl/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StevenJDH/simple-ssl&amp;utm_campaign=Badge_Grade)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=alert_status)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
@@ -29,8 +31,8 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 * Support for overriding to provide different implementations.
 
 ## Prerequisites
-* Java 16 ([OpenJDK](https://adoptopenjdk.net))
-* [Maven CLI](https://maven.apache.org)
+* Java 16+ ([OpenJDK](https://adoptopenjdk.net))
+* [Maven](https://maven.apache.org) 3.8.1+ CLI
 
 ## Installing the library
 The following shows you how to set up a maven project to make use of this library **once it becomes available**.
@@ -46,34 +48,103 @@ Add the dependency to the project's `pom.xml` file like in any other maven proje
 </dependency>
 ```
 
-### Add GitHub's Apache Maven registry
-Currently, the library is only available through GitHub's package registry, so you will need to specify it in the `repository` section of the project's `pom.xml` file.
+By default, releases are downloaded from the Maven Central Repository except for snapshots. To download snapshots, see [Enable OSSRH Nexus Repository Snapshots](#enable-ossrh-nexus-repository-snapshots).
+
+### Enable OSSRH Nexus Repository Snapshots
+Snapshot releases like `1.0.0-SNAPSHOT` are managed in a separate repository, and therefore, are not synced to the Maven Central Repository. To enable access to snapshot releases, add the following `repository` section to the project's `pom.xml` file.
 
 ```xml
-<repositories>
-    <repository>
-        <id>github</id>
-        <name>StevenJDH's GitHub Apache Maven Packages</name>
-        <url>https://maven.pkg.github.com/StevenJDH/simple-ssl</url>
-        <releases><enabled>true</enabled></releases>
-        <snapshots><enabled>true</enabled></snapshots>
-    </repository>
-</repositories>
+<project>
+<!-- [...] -->
+    <repositories>
+        <repository>
+            <id>ossrh-snapshots</id>
+            <name>OSSRH Nexus Repository Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+<!-- [...] -->
+</project>
 ```
 
-Access to the registry requires authentication to download the publicly available library. To set up the required access, add the following entry to your global `settings.xml` file located in the `%USERPROFILE%\.m2\` folder on Windows and in the `~/.m2/` directory on Linux.
+Alternatively, add the below `profile` section to your global `settings.xml` file located in the `%USERPROFILE%\.m2\` folder on Windows and in the `~/.m2/` directory on Linux if you do not want to define this repository in the `pom.xml` file. However, the disadvantage here is that this won't be committed to your repo, so other contributors will have to do the same.
+
+```xml
+<settings>
+<!-- [...] -->
+    <profiles>
+        <profile>
+            <id>allow-snapshots</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>ossrh-snapshots</id>
+                    <name>OSSRH Nexus Repository Snapshots</name>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+<!-- [...] -->
+</settings>
+```
+
+Remember, snapshots are a development build that will likely change from one day to the next despite keeping the same version number. They should not be used in production code, and they should be treated as a preview release that is buggy with partially implemented features that can break at any time.
+
+### Add GitHub's Apache Maven registry
+The library can also be downloaded from GitHub's package registry as an alternative to the Maven Central Repository by specifying it in the `repository` section of the project's `pom.xml` file.
+
+```xml
+<project>
+<!-- [...] -->
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>StevenJDH's GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/StevenJDH/simple-ssl</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+<!-- [...] -->
+</project>
+```
+
+Access to the registry requires authentication to download the publicly available library. To set up the required access, add the following `server` section to your global `settings.xml` file located in the `%USERPROFILE%\.m2\` folder on Windows and in the `~/.m2/` directory on Linux.
 
 ``` xml
-<servers>
-    <server>
-        <id>github</id>
-        <username>YOUR_USERNAME</username>
-        <password>YOUR_AUTH_TOKEN</password>
-    </server>
-</servers>
+<settings>
+<!-- [...] -->
+    <servers>
+        <server>
+            <id>github</id>
+            <username>YOUR_USERNAME</username>
+            <password>YOUR_AUTH_TOKEN</password>
+        </server>
+    </servers>
+<!-- [...] -->
+</settings>
 ```
 
-Replace `YOUR_USERNAME` with your GitHub login name, and replace `YOUR_AUTH_TOKEN` with a GitHub generated personal access token here _GitHub_ > _Settings_ > _Developer Settings_ > _Personal access tokens_ > _Generate new token_. The token needs to have at least the `read:packages` scope or you will get a `Not authorized` exception. For more information see [Working with the Apache Maven registry](https://help.github.com/en/articles/configuring-apache-maven-for-use-with-github-package-registry).
+Replace `YOUR_USERNAME` with your GitHub login name, and replace `YOUR_AUTH_TOKEN` with a GitHub generated personal access token from _GitHub_ > _Settings_ > _Developer Settings_ > _Personal access tokens_ and by clicking on the `Generate new token` button. The token needs to have at least `read:packages` scope or you will get a `Not authorized` exception. For more information, see [Working with the Apache Maven registry](https://help.github.com/en/articles/configuring-apache-maven-for-use-with-github-package-registry). Also, see the [Password Encryption](https://maven.apache.org/guides/mini/guide-encryption.html) guide to better secure any passwords defined in the `settings.xml` file.
 
 ## Using the library
 As the name implies, the use of the library is simple. See a few examples below to get started.
