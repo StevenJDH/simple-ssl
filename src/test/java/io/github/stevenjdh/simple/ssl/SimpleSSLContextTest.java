@@ -20,7 +20,6 @@ package io.github.stevenjdh.simple.ssl;
 import javax.net.ssl.SSLContext;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.junit.jupiter.api.Test;
@@ -28,11 +27,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import io.github.stevenjdh.simple.exceptions.GenericKeyStoreException;
 import io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType;
-
+import io.github.stevenjdh.support.BaseTestSupport;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.security.UnrecoverableKeyException;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
-class SimpleSSLContextTest {
+class SimpleSSLContextTest extends BaseTestSupport {
     
     @Test
     @DisplayName("Should return needed string representation for keystore types.")
@@ -52,7 +55,7 @@ class SimpleSSLContextTest {
         var ctx = SimpleSSLContext.newSSLContext();
         
         assertNotNull(ctx);
-        assertThat(ctx).isInstanceOf(SSLContext.class);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
     }
     
     @Test
@@ -61,7 +64,59 @@ class SimpleSSLContextTest {
         var ctx = SimpleSSLContext.newBuilder().build();
         
         assertNotNull(ctx);
-        assertThat(ctx).isInstanceOf(SSLContext.class);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should return truststore only SSL context when truststore is only provided.")
+    void Should_ReturnTrustStoreOnlySSLContext_When_TrustStoreIsOnlyProvided() {
+        var ctx = SimpleSSLContext.newBuilder()
+                .withTrustStore(CLIENT_TRUSTSTORE.toPath(), "test123456".toCharArray())
+                .trustStoreType(KeyStoreType.PKCS12)
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should return keystore only SSL context when keystore is only provided.")
+    void Should_ReturnKeyStoreOnlySSLContext_When_KeyStoreIsOnlyProvided() {
+        var ctx = SimpleSSLContext.newBuilder()
+                .withKeyStore(CLIENT_KEYSTORE.toPath(), "test".toCharArray())
+                .keyStoreType(KeyStoreType.PKCS12)
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should return full SSL context when truststore and keystore are provided.")
+    void Should_ReturnFullSSLContext_When_TrustStoreAndKeyStoreAreProvided() {
+        var ctx = SimpleSSLContext.newBuilder()
+                .withTrustStore(CLIENT_TRUSTSTORE.toPath(), "test123456".toCharArray())
+                .withKeyStore(CLIENT_KEYSTORE.toPath(), "test".toCharArray())
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should throw UncheckedIOException for incorrect password.")
+    void Should_ThrowUncheckedIOException_ForIncorrectPassword() {
+        UncheckedIOException ex = catchThrowableOfType(() -> { 
+            SimpleSSLContext.newBuilder()
+                    .withTrustStore(CLIENT_TRUSTSTORE.toPath(), "badpass".toCharArray())
+                    .build(); 
+        }, UncheckedIOException.class);
+        
+        assertThat(ex).hasMessage("keystore password was incorrect");
+        assertThat(ex).hasCauseExactlyInstanceOf(IOException.class);
+        assertThat(ex).getCause().hasMessage("keystore password was incorrect");
+        assertThat(ex).hasRootCauseExactlyInstanceOf(UnrecoverableKeyException.class);
+        assertThat(ex).getRootCause().hasMessageStartingWith("failed to decrypt safe contents entry");
     }
     
     @Test
