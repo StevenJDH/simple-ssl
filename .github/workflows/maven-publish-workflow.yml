@@ -17,11 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up OpenJDK 16
+      - name: Install Temurin OpenJDK
         uses: actions/setup-java@v2
         with:
           java-version: 16
-          distribution: 'adopt-hotspot'
+          distribution: 'temurin'
           architecture: x64
 
       - name: Build with Maven
@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 16
-          distribution: 'adopt-hotspot'
+          distribution: 'temurin'
           architecture: x64
           # Matches pom.xml field for distributionManagement/repository/id.
           server-id: ossrh
