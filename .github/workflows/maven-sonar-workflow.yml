@@ -30,12 +30,12 @@ jobs:
         # Disabling shallow clone is recommended for improving relevancy.
         fetch-depth: 0
 
-    - name: Install AdoptOpenJDK
-      uses: AdoptOpenJDK/install-jdk@v1.1.1
+    - name: Install Temurin OpenJDK
+      uses: actions/setup-java@v2
       with:
-        version: '16'
+        java-version: 16
+        distribution: 'temurin'
         architecture: x64
-        impl: hotspot
 
     - name: Cache SonarCloud Packages
       uses: actions/cache@v1
