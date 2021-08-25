@@ -31,7 +31,7 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 * Support for overriding to provide different implementations.
 
 ## Prerequisites
-* Java 16+ ([OpenJDK](https://adoptopenjdk.net))
+* Java 16+ ([Temurin/Adopt](https://adoptium.net)) OpenJDK
 * [Maven](https://maven.apache.org) 3.8.1+ CLI
 
 ## Installing the library
