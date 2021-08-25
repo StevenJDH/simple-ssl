@@ -283,6 +283,7 @@
                                     <level>WARN</level>
                                     <includes>
                                         <include>AdoptOpenJDK</include>
+                                        <include>Eclipse Foundation</include>
                                     </includes>
                                 </requireJavaVendor>
                                 <requireMavenVersion>
