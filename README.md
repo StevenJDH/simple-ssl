@@ -217,6 +217,9 @@ public static void main(String[] args)
 
 If all goes well, the connection should succeed since the untrusted certificate has been trusted in the truststore that was dynamically created from the supplied PEM formatted certificate. For more ideas around usage, have a look at the different unit and integration tests available in this repository.
 
+## Documentation
+Review Simple SSL's [API documentation](https://stevenjdh.github.io/simple-ssl/apidocs) for technical content containing details about methods, classes, return types, arguments, and more to effectively use and integrate the library as part of a solution. This is a work in progress (WIP), so more content will be added slowly as time permits.
+
 ## Contributing
 Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](https://github.com/StevenJDH/.github/blob/main/docs/CONTRIBUTING.md).
 
