@@ -31,8 +31,12 @@ public abstract class BaseTestSupport {
     protected static final Path WIREMOCK_DIR = BASE_DIR.resolve("WireMock");
     protected static final File CLIENT_CERT = WIREMOCK_DIR.resolve("client.crt").toFile();
     protected static final File CLIENT_KEY = WIREMOCK_DIR.resolve("client.key").toFile();
+    protected static final File CLIENT_ENCRYPTED_KEY = WIREMOCK_DIR.resolve("client-encrypted.key").toFile();
+    protected static final File WIREMOCK_CERT = WIREMOCK_DIR.resolve("wiremock.crt").toFile();
+    protected static final File WIREMOCK_KEY = WIREMOCK_DIR.resolve("wiremock.key").toFile();
     protected static final File CLIENT_TRUSTSTORE = WIREMOCK_DIR.resolve("client-truststore.p12").toFile();
     protected static final File CLIENT_KEYSTORE = WIREMOCK_DIR.resolve("client-keystore.p12").toFile();
     protected static final Path OUTPUT_DIR = BASE_DIR.resolve("output");
     protected static final File TRUSTSTORE_OUTPUT = OUTPUT_DIR.resolve("truststore-test.p12").toFile();
+    protected static final File KEYSTORE_OUTPUT = OUTPUT_DIR.resolve("keystore-test.p12").toFile();
 }

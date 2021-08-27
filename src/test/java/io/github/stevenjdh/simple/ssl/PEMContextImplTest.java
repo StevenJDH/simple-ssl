@@ -35,17 +35,26 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType;
 import io.github.stevenjdh.extensions.TimingExtension;
 import io.github.stevenjdh.support.BaseTestSupport;
+import java.lang.reflect.InvocationTargetException;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
 @ExtendWith(TimingExtension.class)
 class PEMContextImplTest extends BaseTestSupport {
 
     private static Method getKeyStoreMethod;
+    private static Method getTrustStoreMethod;
     
     @BeforeAll
     static void setUp() throws Exception {
         getKeyStoreMethod = PEMContextImpl.class.getDeclaredMethod("getKeyStore", 
+                KeyStoreType.class, Path.class, 
+                char[].class, char[].class, Path.class);
+        
+        getTrustStoreMethod = PEMContextImpl.class.getDeclaredMethod("getTrustStore", 
                 KeyStoreType.class, Path.class);
+        
         getKeyStoreMethod.setAccessible(true);
+        getTrustStoreMethod.setAccessible(true);
         OUTPUT_DIR.toFile().mkdirs();
     }
     
@@ -55,6 +64,45 @@ class PEMContextImplTest extends BaseTestSupport {
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
                 .forEach(File::delete);
+    }
+    
+    @Test
+    @DisplayName("Should create SSL context and save keystore when loading private key.")
+    void Should_CreateSSLContextAndSaveKeyStore_When_LoadingPrivateKey() throws Exception {
+        char[] password = "123456".toCharArray();
+        var builder = new PEMContextBuilderImpl();
+        
+        builder.privateKeyPath = CLIENT_KEY.toPath();
+        builder.privateKeyCertChainPath = CLIENT_CERT.toPath();
+        builder.keyStorePath = KEYSTORE_OUTPUT.toPath();
+        builder.keyStorePassword = password;
+        
+        var ctx = PEMContextImpl.create(builder);
+        var ks = KeyStore.getInstance(KeyStoreType.PKCS12.value);
+        try ( var inputStream = new FileInputStream(KEYSTORE_OUTPUT)) {
+            ks.load(inputStream, password);
+        }
+        
+        assertNotNull(ctx);
+        assertEquals("TLSv1.3", ctx.getProtocol());
+        assertThat(KEYSTORE_OUTPUT).exists();
+        assertEquals(1, ks.size());
+        
+        KEYSTORE_OUTPUT.delete();
+    }
+    
+    @Test
+    @DisplayName("Should create SSL context without saving keystore when loading private key.")
+    void Should_CreateSSLContextWithoutSavingKeyStore_When_LoadingPrivateKey() {
+        var builder = new PEMContextBuilderImpl();
+        builder.privateKeyPath = CLIENT_KEY.toPath();
+        builder.privateKeyCertChainPath = CLIENT_CERT.toPath();
+        
+        var ctx = PEMContextImpl.create(builder);
+        
+        assertNotNull(ctx);
+        assertEquals("TLSv1.3", ctx.getProtocol());
+        assertThat(KEYSTORE_OUTPUT).doesNotExist();
     }
     
     @Test
@@ -68,7 +116,7 @@ class PEMContextImplTest extends BaseTestSupport {
         builder.trustStorePassword = password;
         
         var ctx = PEMContextImpl.create(builder);
-        var ks = KeyStore.getInstance("PKCS12");
+        var ks = KeyStore.getInstance(KeyStoreType.PKCS12.value);
         try ( var inputStream = new FileInputStream(TRUSTSTORE_OUTPUT)) {
             ks.load(inputStream, password);
         }
@@ -95,9 +143,57 @@ class PEMContextImplTest extends BaseTestSupport {
     }
 
     @Test
-    @DisplayName("Should create PKCS12 keystore when loading certificate chain.")
-    void Should_CreatePKCS12KeyStore_When_LoadingCertChain() throws Exception {
+    @DisplayName("Should create PKCS12 keystore when loading private key.")
+    void Should_CreatePKCS12KeyStore_When_LoadingPrivateKey() throws Exception {
         var ks = (KeyStore) getKeyStoreMethod.invoke(PEMContextImpl.class, 
+                KeyStoreType.PKCS12, CLIENT_KEY.toPath(), null, 
+                null, CLIENT_CERT.toPath());
+        
+        String alias = "signing-key-alias";
+        
+        assertEquals(KeyStoreType.PKCS12.value, ks.getType());
+        assertEquals(1, ks.size());
+        assertTrue(ks.containsAlias(alias));
+        assertTrue(ks.isKeyEntry(alias));
+        assertFalse(ks.isCertificateEntry(alias));
+        assertFalse(ks.containsAlias("0123456789"));
+    }
+    
+    @Test
+    @DisplayName("Should create JKS keystore when loading private key.")
+    void Should_CreateJKSKeyStore_When_LoadingPrivateKey() throws Exception {
+        var ks = (KeyStore) getKeyStoreMethod.invoke(PEMContextImpl.class, 
+                KeyStoreType.JKS, CLIENT_KEY.toPath(), new char[0], 
+                null, CLIENT_CERT.toPath());
+        
+        String alias = "signing-key-alias";
+        
+        assertEquals(KeyStoreType.JKS.value, ks.getType());
+        assertEquals(1, ks.size());
+        assertTrue(ks.containsAlias("signing-key-alias"));
+        assertTrue(ks.isKeyEntry(alias));
+        assertFalse(ks.isCertificateEntry(alias));
+        assertFalse(ks.containsAlias("0123456789"));
+    }
+    
+    @Test
+    @DisplayName("Should throw NullPointerException when using JKS and private key with null password.")
+    void Should_ThrowNullPointerException_When_UsingJKSAndPrivateKeyWithNullPasssword() {
+        InvocationTargetException ex = catchThrowableOfType(() -> { 
+            getKeyStoreMethod.invoke(PEMContextImpl.class, 
+                    KeyStoreType.JKS, CLIENT_KEY.toPath(), null, 
+                    null, CLIENT_CERT.toPath()); 
+        }, InvocationTargetException.class);
+        
+        assertThat(ex).hasRootCauseExactlyInstanceOf(NullPointerException.class)
+                .getRootCause()
+                .hasMessage("Cannot read the array length because \"password\" is null");
+    }
+    
+    @Test
+    @DisplayName("Should create PKCS12 truststore when loading certificate chain.")
+    void Should_CreatePKCS12TrustStore_When_LoadingCertChain() throws Exception {
+        var ks = (KeyStore) getTrustStoreMethod.invoke(PEMContextImpl.class, 
                 KeyStoreType.PKCS12, BADSSL_COM_CHAIN.toPath());
         
         String alias = "69d6dc42a2d60a20cf2b384d3a7763edabc2e144".substring(0, 39);
@@ -110,9 +206,9 @@ class PEMContextImplTest extends BaseTestSupport {
     }
     
     @Test
-    @DisplayName("Should create JKS keystore when loading certificate chain.")
-    void Should_CreateJKSKeyStore_When_LoadingCertChain() throws Exception {
-        var ks = (KeyStore) getKeyStoreMethod.invoke(PEMContextImpl.class, 
+    @DisplayName("Should create JKS truststore when loading certificate chain.")
+    void Should_CreateJKSTrustStore_When_LoadingCertChain() throws Exception {
+        var ks = (KeyStore) getTrustStoreMethod.invoke(PEMContextImpl.class, 
                 KeyStoreType.JKS, BADSSL_COM_CHAIN.toPath());
         
         String alias = "69d6dc42a2d60a20cf2b384d3a7763edabc2e144".substring(0, 39);

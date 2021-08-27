@@ -25,9 +25,13 @@ class PEMContextBuilderImpl implements PEMContext.Builder {
 
     Path publicKeyPath;
     Path privateKeyPath;
-    char[] privateKeyPassword;
+    char[] privateKeyPassword = new char[0]; // Needed for setKeyEntry method when JKS.
+    Path privateKeyCertChainPath;
+    Path keyStorePath;
+    char[] keyStorePassword;
     Path trustStorePath;
     char[] trustStorePassword;
+    KeyStoreType keyStoreType = KeyStoreType.PKCS12;
     KeyStoreType trustStoreType = KeyStoreType.PKCS12;
     
     @Override
@@ -37,22 +41,40 @@ class PEMContextBuilderImpl implements PEMContext.Builder {
     }
 
     @Override
-    public PEMContext.Builder withPrivateKey(Path keyPath, char[] password) {
+    public PEMContext.Builder withPrivateKey(Path keyPath, Path certPath) {
         privateKeyPath = keyPath;
+        privateKeyCertChainPath = certPath;
+        return this;
+    }
+    
+    @Override
+    public PEMContext.Builder withPrivateKeyPassword(char[] password) {
         privateKeyPassword = password;
         return this;
     }
 
     @Override
-    public PEMContext.Builder saveTrustStore(Path trustMaterialPath, char[] password) {
-        return saveTrustStore(trustMaterialPath, password, KeyStoreType.PKCS12);
+    public PEMContext.Builder saveKeyStore(Path keyMaterialPath, char[] password) {
+        keyStorePath = keyMaterialPath;
+        keyStorePassword = password;
+        return this;
     }
     
     @Override
-    public PEMContext.Builder saveTrustStore(Path trustMaterialPath, 
-            char[] password, KeyStoreType type) {
+    public PEMContext.Builder saveTrustStore(Path trustMaterialPath, char[] password) {
         trustStorePath = trustMaterialPath;
         trustStorePassword = password;
+        return this;
+    }
+    
+    @Override
+    public PEMContext.Builder keyStoreType(KeyStoreType type) {
+        keyStoreType = type;
+        return this;
+    }
+
+    @Override
+    public PEMContext.Builder trustStoreType(KeyStoreType type) {
         trustStoreType = type;
         return this;
     }

@@ -79,6 +79,8 @@ public class CertUtil {
                 .replace("-----END PRIVATE KEY-----", "")
                 .replace("-----BEGIN RSA PRIVATE KEY-----", "")
                 .replace("-----END RSA PRIVATE KEY-----", "")
+                .replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "")
+                .replace("-----END ENCRYPTED PRIVATE KEY-----", "")
                 // Unicode aware version similar to '\s', \p{Space}, \p{Z}, and \p{C}.
                 .replaceAll("\\p{Cc}", "");
         

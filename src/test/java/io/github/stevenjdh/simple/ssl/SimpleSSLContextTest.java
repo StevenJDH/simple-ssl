@@ -28,11 +28,17 @@ import org.junit.jupiter.api.DisplayName;
 import io.github.stevenjdh.simple.exceptions.GenericKeyStoreException;
 import io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType;
 import io.github.stevenjdh.support.BaseTestSupport;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.InvalidKeyException;
 import java.security.UnrecoverableKeyException;
+import java.util.Comparator;
+import javax.crypto.BadPaddingException;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
 class SimpleSSLContextTest extends BaseTestSupport {
@@ -112,11 +118,11 @@ class SimpleSSLContextTest extends BaseTestSupport {
                     .build(); 
         }, UncheckedIOException.class);
         
-        assertThat(ex).hasMessage("keystore password was incorrect");
-        assertThat(ex).hasCauseExactlyInstanceOf(IOException.class);
-        assertThat(ex).getCause().hasMessage("keystore password was incorrect");
-        assertThat(ex).hasRootCauseExactlyInstanceOf(UnrecoverableKeyException.class);
-        assertThat(ex).getRootCause().hasMessageStartingWith("failed to decrypt safe contents entry");
+        assertThat(ex).hasMessage("keystore password was incorrect")
+                .hasCauseExactlyInstanceOf(IOException.class)
+                .getCause().hasMessage("keystore password was incorrect")
+                .hasRootCauseExactlyInstanceOf(UnrecoverableKeyException.class)
+                .getRootCause().hasMessageStartingWith("failed to decrypt safe contents entry");
     }
     
     @Test
@@ -126,6 +132,106 @@ class SimpleSSLContextTest extends BaseTestSupport {
                 .isExactlyInstanceOf(GenericKeyStoreException.class)
                 .hasMessage("No certificate paths were specified.")
                 .isInstanceOf(RuntimeException.class);
+    }
+    
+    @Test
+    @DisplayName("Should return truststore only SSL context when public key is only provided.")
+    void Should_ReturnTrustStoreOnlySSLContext_When_PublicKeyIsOnlyProvided() {
+        var ctx = SimpleSSLContext.newPEMContextBuilder()
+                .withPublicKey(WIREMOCK_CERT.toPath())
+                .trustStoreType(KeyStoreType.PKCS12)
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should return keystore only SSL context when private key is only provided.")
+    void Should_ReturnKeyStoreOnlySSLContext_When_PrivateKeyIsOnlyProvided() {
+        var ctx = SimpleSSLContext.newPEMContextBuilder()
+                .withPrivateKey(CLIENT_KEY.toPath(), CLIENT_CERT.toPath())
+                .keyStoreType(KeyStoreType.PKCS12)
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should return keystore only SSL context when encrypted private key is only provided.")
+    void Should_ReturnKeyStoreOnlySSLContext_When_EncryptedPrivateKeyIsOnlyProvided() {
+        var ctx = SimpleSSLContext.newPEMContextBuilder()
+                .withPrivateKey(CLIENT_ENCRYPTED_KEY.toPath(), CLIENT_CERT.toPath())
+                .withPrivateKeyPassword("test".toCharArray())
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should throw GenericKeyStoreException for incorrect private key password.")
+    void Should_ThrowGenericKeyStoreException_ForIncorrectPrivateKeyPassword() {
+        GenericKeyStoreException ex = catchThrowableOfType(() -> { 
+            SimpleSSLContext.newPEMContextBuilder()
+                    .withPrivateKey(CLIENT_ENCRYPTED_KEY.toPath(), CLIENT_CERT.toPath())
+                    .withPrivateKeyPassword("badpass".toCharArray())
+                    .build(); 
+        }, GenericKeyStoreException.class);
+        
+        assertThat(ex).hasRootCauseExactlyInstanceOf(BadPaddingException.class)
+                .getRootCause()
+                .hasMessageStartingWith("Given final block not properly padded");
+    }
+    
+    @Test
+    @DisplayName("Should throw GenericKeyStoreException when missing encrypted private key password.")
+    void Should_ThrowGenericKeyStoreException_When_MissingEncryptedPrivateKeyPassword() {
+        GenericKeyStoreException ex = catchThrowableOfType(() -> { 
+            SimpleSSLContext.newPEMContextBuilder()
+                    .withPrivateKey(CLIENT_ENCRYPTED_KEY.toPath(), CLIENT_CERT.toPath())
+                    .build(); 
+        }, GenericKeyStoreException.class);
+        
+        assertThat(ex).hasRootCauseExactlyInstanceOf(InvalidKeyException.class)
+                .getRootCause()
+                .hasMessageContaining("DerValue.getBigIntegerInternal, not expected 48");
+    }
+    
+    @Test
+    @DisplayName("Should return full SSL context when private and public keys are provided.")
+    void Should_ReturnFullSSLContext_When_PrivateAndPublicKeysAreProvided() {
+        var ctx = SimpleSSLContext.newPEMContextBuilder()
+                .withPrivateKey(CLIENT_KEY.toPath(), CLIENT_CERT.toPath())
+                .withPublicKey(WIREMOCK_CERT.toPath())
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+    }
+    
+    @Test
+    @DisplayName("Should save keystore and truststore for provided private and public keys.")
+    void Should_SaveKeyStoreAndTrustStore_ForProvidedPrivateAndPublicKeys() throws Exception {
+        OUTPUT_DIR.toFile().mkdirs();
+        
+        var ctx = SimpleSSLContext.newPEMContextBuilder()
+                .withPrivateKey(CLIENT_KEY.toPath(), CLIENT_CERT.toPath())
+                .withPublicKey(WIREMOCK_CERT.toPath())
+                .saveKeyStore(KEYSTORE_OUTPUT.toPath(), "123456".toCharArray())
+                .saveTrustStore(TRUSTSTORE_OUTPUT.toPath(), "123456".toCharArray())
+                .build();
+        
+        assertNotNull(ctx);
+        assertThat(ctx).isExactlyInstanceOf(SSLContext.class);
+        assertThat(KEYSTORE_OUTPUT).exists();
+        assertThat(TRUSTSTORE_OUTPUT).exists();
+        
+        Files.walk(OUTPUT_DIR)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 
     @Test

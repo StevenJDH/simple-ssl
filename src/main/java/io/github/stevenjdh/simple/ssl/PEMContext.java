@@ -26,11 +26,17 @@ interface PEMContext {
     interface Builder {
         Builder withPublicKey(Path keyPath);
         
-        Builder withPrivateKey(Path keyPath, char[] password);
+        Builder withPrivateKey(Path keyPath, Path certPath);
         
+        Builder withPrivateKeyPassword(char[] password);
+        
+        Builder saveKeyStore(Path keyMaterialPath, char[] password);
+              
         Builder saveTrustStore(Path trustMaterialPath, char[] password);
+                
+        Builder keyStoreType(KeyStoreType type);
         
-        Builder saveTrustStore(Path trustMaterialPath, char[] password, KeyStoreType type);
+        Builder trustStoreType(KeyStoreType type);
         
         SSLContext build();
     }
