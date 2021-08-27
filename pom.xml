@@ -220,8 +220,7 @@
                     <dateFormatTimeZone>UTC</dateFormatTimeZone>
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                     <offline>true</offline>
-                    <!-- <includeOnlyProperties>
-                    </includeOnlyProperties> -->
+                    <!-- Using excludeProperties instead of includeOnlyProperties for a smaller list. -->
                     <excludeProperties>
                         <excludeProperty>git.user.*</excludeProperty>
                         <excludeProperty>^git.build.user.(email|name)$</excludeProperty>
@@ -352,6 +351,14 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <!-- Following: https://issues.apache.org/jira/browse/MJAVADOC-680 -->
                         <version>3.3.0</version>
+                        <configuration>
+                            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                            <!-- Ignored unless used with javadoc:javadoc goal and destDir. -->
+                            <reportOutputDirectory>${project.basedir}/docs/apidocs</reportOutputDirectory>
+                            <!-- Set to ${project.version} if using javadoc:javadoc goal with above. -->
+                            <destDir>${project.basedir}/docs/apidocs/${project.version}</destDir>
+                            <show>protected</show>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -360,9 +367,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                        <configuration>
-                            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
