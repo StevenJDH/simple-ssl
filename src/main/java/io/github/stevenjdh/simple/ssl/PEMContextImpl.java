@@ -122,8 +122,9 @@ final class PEMContextImpl implements PEMContext {
     private static KeyManager[] getKeyManagers(KeyStoreType storeType, Path keyPath, 
             char[] keyPassword, Path storePath, char[] storePassword, Path certChain) 
             throws NoSuchAlgorithmException, KeyStoreException, IOException, 
-            CertificateException, UnrecoverableKeyException, InvalidKeySpecException,
-            NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
+                   CertificateException, UnrecoverableKeyException, 
+                   InvalidKeySpecException, NoSuchPaddingException, 
+                   InvalidKeyException, InvalidAlgorithmParameterException {
         
         if (keyPath == null) {
             return new KeyManager[0];
@@ -143,8 +144,9 @@ final class PEMContextImpl implements PEMContext {
     private static KeyStore getKeyStore(KeyStoreType storeType, Path keyPath, 
             char[] keyPassword, char[] storePassword, Path certChain) 
             throws KeyStoreException, IOException, NoSuchAlgorithmException, 
-            CertificateException, InvalidKeySpecException, NoSuchPaddingException, 
-            InvalidKeyException, InvalidAlgorithmParameterException {
+                   CertificateException, InvalidKeySpecException, 
+                   NoSuchPaddingException, InvalidKeyException, 
+                   InvalidAlgorithmParameterException {
         
         var ks = KeyStore.getInstance(storeType.value);
         RSAPrivateKey privateKey = loadPrivateKey(keyPath, keyPassword);
@@ -158,8 +160,8 @@ final class PEMContextImpl implements PEMContext {
     
     private static RSAPrivateKey loadPrivateKey(Path keyPath, char[] keyPassword) 
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, 
-            NoSuchPaddingException, InvalidKeyException, 
-            InvalidAlgorithmParameterException {
+                   NoSuchPaddingException, InvalidKeyException, 
+                   InvalidAlgorithmParameterException {
         
         var derKey = CertUtil.toDERPrivateKey(Files.readString(keyPath));
         var keyFactoryRSA = KeyFactory.getInstance("RSA");
@@ -170,8 +172,8 @@ final class PEMContextImpl implements PEMContext {
     
     private static PKCS8EncodedKeySpec getKeySpec(byte[] derKey, char[] keyPassword)
             throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
-            InvalidKeySpecException, InvalidKeyException, 
-            InvalidAlgorithmParameterException {
+                   InvalidKeySpecException, InvalidKeyException, 
+                   InvalidAlgorithmParameterException {
 
         if (keyPassword == null || keyPassword.length == 0) {
             return new PKCS8EncodedKeySpec(derKey);
@@ -189,8 +191,9 @@ final class PEMContextImpl implements PEMContext {
     }
     
     private static TrustManager[] getTrustManagers(KeyStoreType storeType, Path certPath, 
-            Path storePath, char[] storePassword) throws NoSuchAlgorithmException, 
-            KeyStoreException, IOException, CertificateException {
+            Path storePath, char[] storePassword) 
+            throws NoSuchAlgorithmException, KeyStoreException, IOException, 
+                   CertificateException {
         
         if (certPath == null) {
             return new TrustManager[0];
@@ -209,7 +212,7 @@ final class PEMContextImpl implements PEMContext {
     
     private static KeyStore getTrustStore(KeyStoreType storeType, Path certPath)
             throws KeyStoreException, IOException, NoSuchAlgorithmException, 
-            CertificateException {
+                   CertificateException {
         
         var ks = KeyStore.getInstance(storeType.value);
         var chain = loadPublicKeyChain(certPath);
@@ -238,12 +241,32 @@ final class PEMContextImpl implements PEMContext {
         }
     }
     
+    /**
+     * Stores a keystore to the provided path, and protects its integrity with a 
+     * password.
+     * 
+     * @param ks The {@link KeyStore} instance to save.
+     * @param savePath The path used for saving the keystore.
+     * @param password The password to generate the keystore integrity check.
+     * 
+     * @throws IOException If there was an I/O problem with storing the data.
+     * @throws KeyStoreException If the keystore has not been initialized (loaded).
+     * @throws NoSuchAlgorithmException If the appropriate data integrity algorithm 
+     *         could not be found.
+     * @throws CertificateException If any of the certificates included in the 
+     *         keystore data could not be stored.
+     * @throws GenericKeyStoreException If minimum password length of 4 is not met.
+     */
     private static void saveKeyStore(KeyStore ks, Path savePath, char[] password) 
             throws IOException, KeyStoreException, NoSuchAlgorithmException, 
-            CertificateException {
+                   CertificateException {
+        
+        if (password == null || password.length < 4) {
+            throw new GenericKeyStoreException("KeyStore password must contain at least 4 characters.");
+        }
         
         try (var fos = new FileOutputStream(savePath.toFile())) {
-            ks.store(fos, password); // TODO: must have a password or it won't contain certs.
+            ks.store(fos, password);
         }
     }
 }
