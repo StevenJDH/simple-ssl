@@ -26,7 +26,7 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 ## Features
 * Load KeyStores/TrustStores in PKCS#12 and JKS formats (*.p12, *.pfx, *.jks, *.ks).
 * Load Base64 encoded X.509 certificates and certificate chains (*.pem, *.crt, *.cer, *.pub).
-* Load Base64 encoded X.509 private keys in PKCS#1 and PKCS#8 formats (*.pem, *.key).
+* Load Base64 encoded X.509 encrypted/unencrypted private keys in PKCS#1 and PKCS#8 formats (*.pem, *.key).
 * Certificate utilities for common tasks.
 * Support for overriding to provide different implementations.
 
@@ -220,12 +220,36 @@ If all goes well, the connection should succeed since the untrusted certificate 
 ## Documentation
 Review Simple SSL's [API documentation](https://stevenjdh.github.io/simple-ssl/apidocs) for technical content containing details about methods, classes, return types, arguments, and more to effectively use and integrate the library as part of a solution. This is a work in progress (WIP), so more content will be added slowly as time permits.
 
+## GPG integrity check
+I have digitally signed all releases and associated artifacts as required by the Maven Central Repository. To make use of this for integrity checks, download my public key from the Ubuntu Key Server into your keyring using the following command:
+
+```bash
+gpg --keyserver keyserver.ubuntu.com --recv-keys 2631EDD2F6035B6B03A590147C7EF877C4E5B44E
+```
+
+Then, download the associated *.asc file of the package you want to verify, and issue the following command to perform the check:
+
+```bash
+gpg --verify simple-ssl-1.0.0.jar.asc simple-ssl-1.0.0.jar
+```
+
+There should be a good signature response in the output if the integrity check passed. For more information, see [Verify dependencies using PGP](http://branchandbound.net/blog/security/2012/08/verify-dependencies-using-pgp/), and if not already installed, see [GnuPG Binary Releases](https://gnupg.org/download/index.html) for the needed OS.
+
 ## Contributing
 Thanks for your interest in contributing! There are many ways to contribute to this project. Get started [here](https://github.com/StevenJDH/.github/blob/main/docs/CONTRIBUTING.md).
 
 ## Do you have any questions?
 Many commonly asked questions are answered in the FAQ:
 [https://github.com/StevenJDH/simple-ssl/wiki/FAQ](https://github.com/StevenJDH/simple-ssl/wiki/FAQ)
+
+## Community contact
+Feel free to contact me with any questions you may have, and I'll make sure to answer them as soon as possible!
+
+| Platform  | Link        |
+|:----------|:------------|
+| 💬 Instant Message Chat (preferred) | [![Discord Banner](https://discord.com/api/guilds/851210657318961233/widget.png?style=banner2)](https://discord.gg/VzzzjetTkT)
+
+Announcements of new releases and other topics of interest will be shared via the preferred channel.
 
 ## Want to show your support?
 
