@@ -22,7 +22,7 @@ import io.github.stevenjdh.simple.git.GitProperties;
 import javax.net.ssl.SSLContext;
 import java.nio.file.Path;
 
-public abstract class SimpleSSLContext {
+public interface SimpleSSLContext {
 
     public enum KeyStoreType {
         PKCS12("PKCS12"),
@@ -36,9 +36,7 @@ public abstract class SimpleSSLContext {
             return value;
         }
     }
-    
-    protected SimpleSSLContext() {}
-    
+        
     public static SSLContext newSSLContext() {
         return newBuilder().build();
     }

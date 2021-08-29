@@ -35,7 +35,7 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 
-final class SimpleSSLContextImpl extends SimpleSSLContext {
+final class SimpleSSLContextImpl implements SimpleSSLContext {
 
     private final Path keyStorePath;
     private final char[] keyStorePassword;
@@ -61,7 +61,7 @@ final class SimpleSSLContextImpl extends SimpleSSLContext {
             try {
                 sslContext = SSLContext.getDefault();
             } catch (NoSuchAlgorithmException ex) {
-                throw new UncheckedIOException(new IOException(ex));
+                throw new GenericKeyStoreException(ex.getMessage(), ex);
             }
         } else {
             sslContext = createSSLContext();
