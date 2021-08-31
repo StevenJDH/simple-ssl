@@ -25,11 +25,10 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
-public class TimingExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
+public class BenchmarkExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
 
-    private static final Logger LOG = Logger.getLogger(TimingExtension.class.getName());
-
-    private static final String START_TIME = "start time";
+    private static final Logger LOG = getFormattedLogger(BenchmarkExtension.class.getName());
+    private static final String START_TIME = "start";
 
     @Override
     public void beforeTestExecution(ExtensionContext context) throws Exception {
@@ -48,5 +47,11 @@ public class TimingExtension implements BeforeTestExecutionCallback, AfterTestEx
 
     private Store getStore(ExtensionContext context) {
         return context.getStore(Namespace.create(getClass(), context.getRequiredTestMethod()));
+    }
+    
+    private static Logger getFormattedLogger(String name) {
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+        return Logger.getLogger(name);
     }
 }
