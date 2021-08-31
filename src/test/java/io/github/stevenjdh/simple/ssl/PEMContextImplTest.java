@@ -31,14 +31,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.extension.ExtendWith;
 import io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType;
-import io.github.stevenjdh.extensions.TimingExtension;
 import io.github.stevenjdh.support.BaseTestSupport;
 import java.lang.reflect.InvocationTargetException;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
-@ExtendWith(TimingExtension.class)
 class PEMContextImplTest extends BaseTestSupport {
 
     private static Method getKeyStoreMethod;

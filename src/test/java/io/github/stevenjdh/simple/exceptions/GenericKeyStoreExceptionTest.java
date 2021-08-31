@@ -17,10 +17,13 @@
 
 package io.github.stevenjdh.simple.exceptions;
 
+import io.github.stevenjdh.extensions.BenchmarkExtension;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(BenchmarkExtension.class)
 class GenericKeyStoreExceptionTest {
 
     private static final String TEST_MESSAGE = "This is a test.";
