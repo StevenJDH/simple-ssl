@@ -48,14 +48,24 @@
     <properties>
         <java.version>16</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven.compiler.version>3.8.1</maven.compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
         <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
-        <!-- JaCoCo Properties -->
+        <!-- Plugin Versions -->
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <maven.failsafe.version>2.22.2</maven.failsafe.version>
         <jacoco.version>0.8.7</jacoco.version>
+        <git.commit.id.maven.version>5.0.0</git.commit.id.maven.version>
+        <jsonschema2pojo.version>1.1.1</jsonschema2pojo.version>
+        <maven.enforcer.version>3.0.0</maven.enforcer.version>
+        <nexus.staging.version>1.6.7</nexus.staging.version>
+        <maven.gpg.version>3.0.1</maven.gpg.version>
+        <maven.javadoc.version>3.3.1</maven.javadoc.version>
+        <maven.source.version>3.2.1</maven.source.version>
+        <!-- JaCoCo Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
@@ -147,12 +157,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven.surefire.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven.failsafe.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -240,7 +250,7 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>5.0.0</version>
+                <version>${git.commit.id.maven.version}</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
@@ -292,7 +302,7 @@
             <plugin>
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>1.1.1</version>
+                <version>${jsonschema2pojo.version}</version>
                 <configuration>
                     <sourceDirectory>${project.basedir}/src/main/resources/schema</sourceDirectory>
                     <targetPackage>io.github.stevenjdh.simple.git</targetPackage>
@@ -315,7 +325,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${maven.enforcer.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -364,7 +374,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
+                        <version>${nexus.staging.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -375,7 +385,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>${maven.gpg.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -398,8 +408,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <!-- Following: https://issues.apache.org/jira/browse/MJAVADOC-680 -->
-                        <version>3.3.0</version>
+                        <version>${maven.javadoc.version}</version>
                         <configuration>
                             <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                             <!-- Ignored unless used with javadoc:javadoc goal and destDir. -->
@@ -407,6 +416,8 @@
                             <!-- Set to ${project.version} if using javadoc:javadoc goal with above. -->
                             <destDir>${project.basedir}/docs/apidocs/${project.version}</destDir>
                             <show>protected</show>
+                            <!-- Suppresses the timestamp, which is hidden in an HTML comment. -->
+                            <notimestamp>true</notimestamp>
                         </configuration>
                         <executions>
                             <execution>
@@ -420,7 +431,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
+                        <version>${maven.source.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
