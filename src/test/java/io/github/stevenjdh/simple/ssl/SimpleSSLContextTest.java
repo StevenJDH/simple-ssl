@@ -130,7 +130,7 @@ class SimpleSSLContextTest extends BaseTestSupport {
     void Should_ThrowGenericKeyStoreException_When_BuildingPEMContextDirectly() {
         assertThatThrownBy(() -> SimpleSSLContext.newPEMContextBuilder().build())
                 .isExactlyInstanceOf(GenericKeyStoreException.class)
-                .hasMessage("No certificate paths were specified.")
+                .hasMessage("No certificate or private key paths were specified.")
                 .isInstanceOf(RuntimeException.class);
     }
     

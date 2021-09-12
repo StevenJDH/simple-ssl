@@ -57,6 +57,12 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 
+/**
+ * PEM derived SSLContext implementation. Contains all configuration information 
+ * needed to build a custom context.
+ * 
+ * @since 1.0
+ */
 final class PEMContextImpl implements PEMContext {
 
     private final Path publicKeyPath;
@@ -72,10 +78,29 @@ final class PEMContextImpl implements PEMContext {
     private final SSLContext sslContext;
     private static final Logger LOG = Logger.getLogger(PEMContextImpl.class.getName());
     
+    /**
+     * Creates a {@link SSLContext} instance that is initialized with an 
+     * optional set of key and trust managers, and a source of secure random 
+     * bytes.
+     * 
+     * <p><b>Note:</b> The {@code SSLContext} will use TLS v1.3 by default.
+     * 
+     * @param builder The configuration needed to build a {@code SSLContext}.
+     * @return A new {@code SSLContext} instance.
+     */
     static SSLContext create(PEMContextBuilderImpl builder) {
         return new PEMContextImpl(builder).getSSLContext();
     }
     
+    /**
+     * Sets the initial state collected from the builder that will be used to 
+     * create a custom {@link SSLContext}.
+     * 
+     * @param builder The configuration needed to build a {@code SSLContext}.
+     * 
+     * @throws GenericKeyStoreException If no certificate or private key paths 
+     *         were specified.
+     */
     private PEMContextImpl(PEMContextBuilderImpl builder) {
         publicKeyPath = builder.publicKeyPath;
         privateKeyPath = builder.privateKeyPath;
@@ -89,28 +114,44 @@ final class PEMContextImpl implements PEMContext {
         trustStoreType = builder.trustStoreType;
         
         if (builder.publicKeyPath == null && builder.privateKeyPath == null) {
-            throw new GenericKeyStoreException("No certificate paths were specified.");
+            throw new GenericKeyStoreException("No certificate or private key paths were specified.");
         } else {
             sslContext = createSSLContext();
         }
     }
 
+    /**
+     * Gets the stored {@link SSLContext} instance that was created via the 
+     * builder.
+     * 
+     * @return The {@code SSLContext} instance.
+     */
     SSLContext getSSLContext() {
         return sslContext;
     }
     
+    /**
+     * Creates a {@link SSLContext} instance that is initialized with an 
+     * optional set of key and trust managers, and a source of secure random 
+     * bytes.
+     * 
+     * <p><b>Note:</b> The {@code SSLContext} will use TLS v1.3 by default.
+     * 
+     * @return A new {@code SSLContext} instance.
+     * 
+     * @throws GenericKeyStoreException If one of various keystore related 
+     *         issues occur.
+     * @throws UncheckedIOException If there was an I/O problem with reading or 
+     *         storing keystore related data.
+     */
     private SSLContext createSSLContext() {
         try {
-            var keyManagers = getKeyManagers(keyStoreType, privateKeyPath, 
-                 privateKeyPassword, keyStorePath, keyStorePassword, 
-                 privateKeyCertChainPath);
-            
-            var trustManagers = getTrustManagers(trustStoreType, publicKeyPath, 
-                    trustStorePath, trustStorePassword);
-            
+            var keyManagers = getKeyManagers();
+            var trustManagers = getTrustManagers();
             var context = SSLContext.getInstance("TLSv1.3");
+            
             context.init(keyManagers, trustManagers, new SecureRandom());
-
+            
             return context;
         } catch (GeneralSecurityException ex) {
             throw new GenericKeyStoreException(ex.getMessage(), ex);
@@ -119,31 +160,133 @@ final class PEMContextImpl implements PEMContext {
         }
     }
 
-    private static KeyManager[] getKeyManagers(KeyStoreType storeType, Path keyPath, 
-            char[] keyPassword, Path storePath, char[] storePassword, Path certChain) 
-            throws NoSuchAlgorithmException, KeyStoreException, IOException, 
+    /**
+     * Initializes a key manager factory with a source of provider-specific key 
+     * material, and returns one key manager for each type of key material. The 
+     * keystore can be optionally saved to the specified path defined by 
+     * {@link #keyStorePath}.
+     * 
+     * @return The key managers for the keystore.
+     * 
+     * @throws IOException If an I/O error occurs when reading from the file or 
+     *         a malformed or unmappable byte sequence is read, parsing the 
+     *         ASN.1 encoding, an I/O or format problem with the keystore data, 
+     *         a password is required but not given, or when the given password 
+     *         was incorrect. If the error is due to a wrong password, the 
+     *         {@link Throwable#getCause cause} of the {@code IOException} 
+     *         should be an {@code UnrecoverableKeyException}.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code KeyManagerFactorySpi}, {@code KeyFactorySpi}, 
+     *         {@code SecretKeyFactorySpi}, or {@code CipherSpi} implementation 
+     *         for the specified algorithm, or if {@code transformation} is 
+     *         {@code null}, empty, or in an invalid format, or if the algorithm 
+     *         used to check the integrity of the keystore cannot be found.
+     * @throws KeyStoreException If no {@code Provider} supports a
+     *         {@code KeyStoreSpi} implementation for the specified type, or if 
+     *         the keystore has not been initialized (loaded), the given key 
+     *         cannot be protected, or this operation fails for some other 
+     *         reason.
+     * @throws CertificateException If there are parsing errors, or if any of 
+     *         the certificates in the keystore could not be loaded or stored.
+     * @throws UnrecoverableKeyException If the key cannot be recovered (e.g. 
+     *         the given password is wrong).
+     * @throws InvalidKeySpecException If the given key specification is 
+     *         inappropriate for this key factory to produce a private key, or 
+     *         its keysize exceeds the maximum allowable keysize (as determined 
+     *         from the configured jurisdiction policy files).
+     * @throws NoSuchPaddingException If {@code transformation} contains a 
+     *         padding scheme that is not available.
+     * @throws InvalidKeyException If the given key is inappropriate for
+     *         initializing this cipher, or its keysize exceeds the maximum 
+     *         allowable keysize (as determined from the configured jurisdiction 
+     *         policy files).
+     * @throws InvalidAlgorithmParameterException If the given algorithm
+     *         parameters are inappropriate for this cipher, or this cipher 
+     *         requires algorithm parameters and {@code params} is null, or the 
+     *         given algorithm parameters imply a cryptographic strength that 
+     *         would exceed the legal limits (as determined from the configured 
+     *         jurisdiction policy files).
+     */
+    private KeyManager[] getKeyManagers() 
+            throws IOException, NoSuchAlgorithmException, KeyStoreException, 
                    CertificateException, UnrecoverableKeyException, 
                    InvalidKeySpecException, NoSuchPaddingException, 
                    InvalidKeyException, InvalidAlgorithmParameterException {
         
-        if (keyPath == null) {
+        if (privateKeyPath == null) {
             return new KeyManager[0];
         }
         
         var kmf = KeyManagerFactory.getInstance("SunX509");
-        var keyStore = getKeyStore(storeType, keyPath, keyPassword, storePassword, certChain);
-        kmf.init(keyStore, keyPassword);
+        var keyStore = getKeyStore(keyStoreType, privateKeyPath, 
+                privateKeyPassword, keyStorePassword, 
+                privateKeyCertChainPath);
         
-        if (storePath != null) {
-            saveKeyStore(keyStore, storePath, storePassword);
+        kmf.init(keyStore, privateKeyPassword);
+        
+        if (keyStorePath != null) {
+            saveKeyStore(keyStore, keyStorePath, keyStorePassword);
         }
         
         return kmf.getKeyManagers();
     }
     
+    /**
+     * Creates a keystore from a private key and certificate pair to be used as 
+     * a keystore. See {@link #getTrustStore} for truststore instances.
+     * 
+     * @param storeType The type of keystore with PKCS12 being the default.
+     * @param keyPath The path to the file containing the private key material.
+     * @param keyPassword The password used to decrypt the encrypted key. If 
+     *        this is set to null or an empty char[], it will be assumed that
+     *        decryption is not needed. The password is cloned before it is 
+     *        stored in the new {@link PBEKeySpec} object.
+     * @param storePassword The password used to generate and check the 
+     *        integrity of the keystore and unlock the it.
+     * @param certChain The certificate chain with the corresponding public key 
+     *        that pairs with the private key.
+     * @return A keystore instance of the specified type.
+     * 
+     * @throws IOException If an I/O error occurs when reading from the file or 
+     *         a malformed or unmappable byte sequence is read, parsing the 
+     *         ASN.1 encoding, an I/O or format problem with the keystore data, 
+     *         a password is required but not given, or when the given password 
+     *         was incorrect. If the error is due to a wrong password, the 
+     *         {@link Throwable#getCause cause} of the {@code IOException} 
+     *         should be an {@code UnrecoverableKeyException}.
+     * @throws KeyStoreException If no {@code Provider} supports a
+     *         {@code KeyStoreSpi} implementation for the specified type, or if 
+     *         the keystore has not been initialized (loaded), the given key 
+     *         cannot be protected, or this operation fails for some other 
+     *         reason.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code KeyFactorySpi}, {@code SecretKeyFactorySpi}, or 
+     *         {@code CipherSpi} implementation for the specified algorithm, or 
+     *         if {@code transformation} is {@code null}, empty, or in an 
+     *         invalid format, or if the algorithm used to check the integrity 
+     *         of the keystore cannot be found.
+     * @throws CertificateException If there are parsing errors, or if any of 
+     *         the certificates in the keystore could not be loaded.
+     * @throws InvalidKeySpecException If the given key specification is 
+     *         inappropriate for this key factory to produce a private key, or 
+     *         its keysize exceeds the maximum allowable keysize (as determined 
+     *         from the configured jurisdiction policy files).
+     * @throws NoSuchPaddingException If {@code transformation} contains a 
+     *         padding scheme that is not available.
+     * @throws InvalidKeyException If the given key is inappropriate for
+     *         initializing this cipher, or its keysize exceeds the maximum 
+     *         allowable keysize (as determined from the configured jurisdiction 
+     *         policy files).
+     * @throws InvalidAlgorithmParameterException If the given algorithm
+     *         parameters are inappropriate for this cipher, or this cipher 
+     *         requires algorithm parameters and {@code params} is null, or the 
+     *         given algorithm parameters imply a cryptographic strength that 
+     *         would exceed the legal limits (as determined from the configured 
+     *         jurisdiction policy files).
+     */
     private static KeyStore getKeyStore(KeyStoreType storeType, Path keyPath, 
             char[] keyPassword, char[] storePassword, Path certChain) 
-            throws KeyStoreException, IOException, NoSuchAlgorithmException, 
+            throws IOException, KeyStoreException, NoSuchAlgorithmException, 
                    CertificateException, InvalidKeySpecException, 
                    NoSuchPaddingException, InvalidKeyException, 
                    InvalidAlgorithmParameterException {
@@ -158,6 +301,42 @@ final class PEMContextImpl implements PEMContext {
         return ks;
     }
     
+    /**
+     * Loads a private key object from the provided key specification
+     * (key material).
+     * 
+     * @param keyPath The path to the private key material.
+     * @param keyPassword The password used to decrypt the encrypted key. If 
+     *        this is set to null or an empty char[], it will be assumed that
+     *        decryption is not needed. The password is cloned before it is 
+     *        stored in the new {@link PBEKeySpec} object.
+     * @return An RSA private key.
+     * 
+     * @throws IOException If an I/O error occurs reading from the file or a 
+     *         malformed or unmappable byte sequence is read, or if an error 
+     *         occurs when parsing the ASN.1 encoding.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code KeyFactorySpi}, {@code SecretKeyFactorySpi}, or 
+     *         {@code CipherSpi} implementation for the specified algorithm, or 
+     *         if {@code transformation} is {@code null}, empty, or in an 
+     *         invalid format.
+     * @throws InvalidKeySpecException If the given key specification is 
+     *         inappropriate for this key factory to produce a private key, or 
+     *         its keysize exceeds the maximum allowable keysize (as determined 
+     *         from the configured jurisdiction policy files).
+     * @throws NoSuchPaddingException If {@code transformation} contains a 
+     *         padding scheme that is not available.
+     * @throws InvalidKeyException If the given key is inappropriate for
+     *         initializing this cipher, or its keysize exceeds the maximum 
+     *         allowable keysize (as determined from the configured jurisdiction 
+     *         policy files).
+     * @throws InvalidAlgorithmParameterException If the given algorithm
+     *         parameters are inappropriate for this cipher, or this cipher 
+     *         requires algorithm parameters and {@code params} is null, or the 
+     *         given algorithm parameters imply a cryptographic strength that 
+     *         would exceed the legal limits (as determined from the configured 
+     *         jurisdiction policy files).
+     */
     private static RSAPrivateKey loadPrivateKey(Path keyPath, char[] keyPassword) 
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, 
                    NoSuchPaddingException, InvalidKeyException, 
@@ -170,6 +349,46 @@ final class PEMContextImpl implements PEMContext {
         return (RSAPrivateKey) keyFactoryRSA.generatePrivate(keySpec);
     }
     
+    /**
+     * Extracts the enclosed {@link PKCS8EncodedKeySpec} object from the 
+     * encrypted key data and returns it.
+     * 
+     * <p><b>Note:</b> In order to successfully retrieve the enclosed
+     * PKCS8EncodedKeySpec object, the {@link Cipher} needs to be initialized 
+     * to either {@code Cipher.DECRYPT_MODE} or {@code Cipher.UNWRAP_MODE}, with 
+     * the same key and parameters used for generating the encrypted data.
+     * 
+     * @param derKey The key, which is assumed to be encoded according to the 
+     *        PKCS #8 standard. The contents of the array are copied to protect 
+     *        against subsequent modification.
+     * @param keyPassword The password used to decrypt the encrypted key. If 
+     *        this is set to null or an empty char[], it will be assumed that
+     *        decryption is not needed. The password is cloned before it is 
+     *        stored in the new {@link PBEKeySpec} object.
+     * @return The PKCS8EncodedKeySpec object.
+     * 
+     * @throws IOException If an error occurs when parsing the ASN.1 encoding.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code SecretKeyFactorySpi} or {@code CipherSpi} implementation 
+     *         for the specified algorithm, or if {@code transformation} is 
+     *         {@code null}, empty, or in an invalid format.
+     * @throws NoSuchPaddingException If {@code transformation} contains a 
+     *         padding scheme that is not available.
+     * @throws InvalidKeySpecException If the given key specification
+     *         is inappropriate for this secret-key factory to produce a secret 
+     *         key, or if the given cipher is inappropriate for the encrypted 
+     *         data, or the encrypted data is corrupted and cannot be decrypted.
+     * @throws InvalidKeyException If the given key is inappropriate for
+     *         initializing this cipher, or its keysize exceeds the maximum 
+     *         allowable keysize (as determined from the configured jurisdiction 
+     *         policy files).
+     * @throws InvalidAlgorithmParameterException If the given algorithm
+     *         parameters are inappropriate for this cipher, or this cipher 
+     *         requires algorithm parameters and {@code params} is null, or the 
+     *         given algorithm parameters imply a cryptographic strength that 
+     *         would exceed the legal limits (as determined from the configured 
+     *         jurisdiction policy files).
+     */
     private static PKCS8EncodedKeySpec getKeySpec(byte[] derKey, char[] keyPassword)
             throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
                    InvalidKeySpecException, InvalidKeyException, 
@@ -190,26 +409,60 @@ final class PEMContextImpl implements PEMContext {
         return encryptedPrivateKeyInfo.getKeySpec(cipher);
     }
     
-    private static TrustManager[] getTrustManagers(KeyStoreType storeType, Path certPath, 
-            Path storePath, char[] storePassword) 
-            throws NoSuchAlgorithmException, KeyStoreException, IOException, 
+    /**
+     * Initializes a trust manager factory with a source of provider-specific
+     * trust material, and returns one trust manager for each type of trust 
+     * material. The truststore can be optionally saved to the specified path 
+     * defined by {@link #trustStorePath}.
+     * 
+     * @return The trust managers for the truststore.
+     * 
+     * @throws IOException If there are IO related errors.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code MessageDigestSpi} implementation for the specified 
+     *         algorithm, or if the appropriate data integrity algorithm could 
+     *         not be found.
+     * @throws KeyStoreException If no {@code Provider} supports a 
+     *         {@code KeyStoreSpi} implementation for the specified type, or if 
+     *         the keystore initialization operation fails.
+     * @throws CertificateException If there are parsing errors.
+     */
+    private TrustManager[] getTrustManagers() 
+            throws IOException, NoSuchAlgorithmException, KeyStoreException, 
                    CertificateException {
         
-        if (certPath == null) {
+        if (publicKeyPath == null) {
             return new TrustManager[0];
         }
         
         var tmf = TrustManagerFactory.getInstance("SunX509");
-        var trustStore = getTrustStore(storeType, certPath);
+        var trustStore = getTrustStore(trustStoreType, publicKeyPath);
         tmf.init(trustStore);
         
-        if (storePath != null) {
-            saveKeyStore(trustStore, storePath, storePassword);
+        if (trustStorePath != null) {
+            saveKeyStore(trustStore, trustStorePath, trustStorePassword);
         }
         
         return tmf.getTrustManagers();
     }
     
+    /**
+     * Creates a keystore from a certificate or certificate chain to be used as 
+     * a truststore. See {@link #getKeyStore} for keystore instances.
+     * 
+     * @param storeType The type of keystore with PKCS12 being the default.
+     * @param certPath The path to the file containing one or more certificates.
+     * @return A keystore instance of the specified type.
+     * 
+     * @throws KeyStoreException If no {@code Provider} supports a
+     *         {@code KeyStoreSpi} implementation for the specified type.
+     * @throws IOException If there are IO related errors.
+     * @throws NoSuchAlgorithmException If the algorithm used to check the 
+     *         integrity of the keystore cannot be found, or if no 
+     *         {@code Provider} supports a {@code MessageDigestSpi} 
+     *         implementation for the specified algorithm.
+     * @throws CertificateException If there are parsing errors.
+     */
     private static KeyStore getTrustStore(KeyStoreType storeType, Path certPath)
             throws KeyStoreException, IOException, NoSuchAlgorithmException, 
                    CertificateException {
@@ -229,11 +482,22 @@ final class PEMContextImpl implements PEMContext {
         return ks;
     }
     
-    private static List<X509Certificate> loadPublicKeyChain(Path keyPath) 
+    /**
+     * Loads a file containing a certificate or certificate chain that is Base64 
+     * encoded.
+     * 
+     * @param certPath The path to the file containing one or more certificates.
+     * @return A (possibly empty) list of {@link X509Certificate} objects 
+     * initialized with the data from the provided path.
+     * 
+     * @throws IOException If there are IO related errors.
+     * @throws CertificateException If there are parsing errors.
+     */
+    private static List<X509Certificate> loadPublicKeyChain(Path certPath) 
             throws IOException, CertificateException {
         
         var certificateFactoryX509 = CertificateFactory.getInstance("X.509");
-        try (var is = new FileInputStream(keyPath.toFile())) {
+        try (var is = new FileInputStream(certPath.toFile())) {
             return certificateFactoryX509.generateCertificates(is).stream()
                     .filter(X509Certificate.class::isInstance)
                     .map(X509Certificate.class::cast)
