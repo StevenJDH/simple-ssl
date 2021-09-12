@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <version>1.0.0</version>
     <name>Simple SSL</name>
-    <description>Easily create SSLContext instances from KeyStore and PEM files.</description>
+    <description>A lightweight library to easily create SSLContext instances from KeyStore and PEM files with different formats.</description>
     <url>https://github.com/StevenJDH/simple-ssl</url>
     <inceptionYear>2021</inceptionYear>
   
