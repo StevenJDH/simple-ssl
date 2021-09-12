@@ -17,6 +17,7 @@
 
 package io.github.stevenjdh.simple.ssl;
 
+import io.github.stevenjdh.simple.exceptions.GenericKeyStoreException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -138,6 +139,44 @@ class PEMContextImplTest extends BaseTestSupport {
         assertEquals("TLSv1.3", ctx.getProtocol());
         assertThat(TRUSTSTORE_OUTPUT).doesNotExist();
     }
+    
+    @Test
+    @DisplayName("Should throw GenericKeyStoreException when password minimum is not met.")
+    void Should_ThrowGenericKeyStoreException_When_PasswordMiniumIsNotMet() {
+        var builder = new PEMContextBuilderImpl();
+        builder.publicKeyPath = BADSSL_COM_CHAIN.toPath();
+        builder.trustStorePath = TRUSTSTORE_OUTPUT.toPath();
+        builder.trustStorePassword = "123".toCharArray();
+        
+        GenericKeyStoreException ex = catchThrowableOfType(() -> { 
+            PEMContextImpl.create(builder);
+        }, GenericKeyStoreException.class);
+        
+        assertThat(ex).isExactlyInstanceOf(GenericKeyStoreException.class)
+                .hasMessageContaining("KeyStore password must contain at least 4 characters.")
+                .hasNoCause();
+                
+        assertThat(TRUSTSTORE_OUTPUT).doesNotExist();
+    }
+    
+    @Test
+    @DisplayName("Should throw GenericKeyStoreException when password is null.")
+    void Should_ThrowGenericKeyStoreException_When_PasswordIsNull() {
+        var builder = new PEMContextBuilderImpl();
+        builder.publicKeyPath = BADSSL_COM_CHAIN.toPath();
+        builder.trustStorePath = TRUSTSTORE_OUTPUT.toPath();
+        builder.trustStorePassword = null;
+        
+        GenericKeyStoreException ex = catchThrowableOfType(() -> { 
+            PEMContextImpl.create(builder);
+        }, GenericKeyStoreException.class);
+        
+        assertThat(ex).isExactlyInstanceOf(GenericKeyStoreException.class)
+                .hasMessageContaining("KeyStore password must contain at least 4 characters.")
+                .hasNoCause();
+                
+        assertThat(TRUSTSTORE_OUTPUT).doesNotExist();
+    }
 
     @Test
     @DisplayName("Should create PKCS12 keystore when loading private key.")
@@ -190,7 +229,7 @@ class PEMContextImplTest extends BaseTestSupport {
     @Test
     @DisplayName("Should create PKCS12 truststore when loading certificate chain.")
     void Should_CreatePKCS12TrustStore_When_LoadingCertChain() throws Exception {
-        var ks = (KeyStore) getTrustStoreMethod.invoke(PEMContextImpl.class, 
+        var ks = (KeyStore) getTrustStoreMethod.invoke(PEMContextImpl.class,
                 KeyStoreType.PKCS12, BADSSL_COM_CHAIN.toPath());
         
         String alias = "69d6dc42a2d60a20cf2b384d3a7763edabc2e144".substring(0, 39);
