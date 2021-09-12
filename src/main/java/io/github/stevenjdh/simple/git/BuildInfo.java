@@ -23,10 +23,18 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 public final class BuildInfo {
+    
+    private final ObjectMapper mapper;
+    
+    public BuildInfo() {
+        this(new ObjectMapper());
+    }
+    
+    public BuildInfo(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public GitProperties getGitProperties() {
-        final var mapper = new ObjectMapper();
-
         try (var is = getClass().getClassLoader()
                 .getResourceAsStream("git.properties")) {
             return mapper.readValue(is, GitProperties.class);
