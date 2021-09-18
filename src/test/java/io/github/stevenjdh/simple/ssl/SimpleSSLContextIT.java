@@ -89,7 +89,7 @@ class SimpleSSLContextIT extends WireMockTestSupport {
         HttpClient client = HttpClient.newHttpClient();
         
         SSLHandshakeException ex = catchThrowableOfType(() -> { 
-            client.send(request, HttpResponse.BodyHandlers.ofString()); 
+            client.send(request, HttpResponse.BodyHandlers.ofString());
         }, SSLHandshakeException.class);
         
         assertThat(ex).isExactlyInstanceOf(SSLHandshakeException.class)
