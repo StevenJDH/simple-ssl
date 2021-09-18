@@ -185,7 +185,7 @@ final class PEMContextImpl implements PEMContext {
      *         {@code KeyStoreSpi} implementation for the specified type, or if 
      *         the keystore has not been initialized (loaded), the given key 
      *         cannot be protected, or this operation fails for some other 
-     *         reason.
+     *         reason, or if the key manager initialization operation fails.
      * @throws CertificateException If there are parsing errors, or if any of 
      *         the certificates in the keystore could not be loaded or stored.
      * @throws UnrecoverableKeyException If the key cannot be recovered (e.g. 
@@ -424,7 +424,7 @@ final class PEMContextImpl implements PEMContext {
      *         not be found.
      * @throws KeyStoreException If no {@code Provider} supports a 
      *         {@code KeyStoreSpi} implementation for the specified type, or if 
-     *         the keystore initialization operation fails.
+     *         the trust manager initialization operation fails.
      * @throws CertificateException If there are parsing errors.
      */
     private TrustManager[] getTrustManagers() 
@@ -449,6 +449,9 @@ final class PEMContextImpl implements PEMContext {
     /**
      * Creates a keystore from a certificate or certificate chain to be used as 
      * a truststore. See {@link #getKeyStore} for keystore instances.
+     * 
+     * <p><b>Note:</b> The alias of a certificate in the truststore will be the 
+     * first 39 characters of its SHA-1 thumbprint.
      * 
      * @param storeType The type of keystore with PKCS12 being the default.
      * @param certPath The path to the file containing one or more certificates.
