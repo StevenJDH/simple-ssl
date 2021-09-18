@@ -35,6 +35,12 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 
+/**
+ * Simple SSLContext implementation. Contains all configuration information 
+ * needed to build a custom context.
+ * 
+ * @since 1.0
+ */
 final class SimpleSSLContextImpl implements SimpleSSLContext {
 
     private final Path keyStorePath;
@@ -45,10 +51,32 @@ final class SimpleSSLContextImpl implements SimpleSSLContext {
     private final KeyStoreType trustStoreType;
     private final SSLContext sslContext;
     
+    /**
+     * Creates a {@link SSLContext} instance that is initialized with an 
+     * optional set of key and trust managers, and a source of secure random 
+     * bytes.
+     * 
+     * <p><b>Note:</b> The {@code SSLContext} will use TLS v1.3 by default.
+     * 
+     * @param builder The configuration needed to build a {@code SSLContext}.
+     * @return A new {@code SSLContext} instance.
+     */
     static SSLContext create(SSLContextBuilderImpl builder) {
         return new SimpleSSLContextImpl(builder).getSSLContext();
     }
     
+    /**
+     * Sets the initial state collected from the builder that will be used to 
+     * create a custom {@link SSLContext}.
+     * 
+     * <p><b>Note:</b> Depending on the configuration provided to the builder, 
+     * the {@linkplain SSLContext#getDefault() default context} may be returned.
+     * 
+     * @param builder The configuration needed to build a {@code SSLContext}.
+     * 
+     * @throws GenericKeyStoreException If one of various keystore related 
+     *         issues occur.
+     */
     private SimpleSSLContextImpl(SSLContextBuilderImpl builder) {
         keyStorePath = builder.keyStorePath;
         keyStorePassword = builder.keyStorePassword;
@@ -68,14 +96,34 @@ final class SimpleSSLContextImpl implements SimpleSSLContext {
         }
     }
 
+    /**
+     * Gets the stored {@link SSLContext} instance that was created via the 
+     * builder.
+     * 
+     * @return The {@code SSLContext} instance. 
+     */
     SSLContext getSSLContext() {
         return sslContext;
     }
     
+    /**
+     * Creates a {@link SSLContext} instance that is initialized with an 
+     * optional set of key and trust managers, and a source of secure random 
+     * bytes.
+     * 
+     * <p><b>Note:</b> The {@code SSLContext} will use TLS v1.3 by default.
+     * 
+     * @return A new {@code SSLContext} instance.
+     * 
+     * @throws GenericKeyStoreException If one of various keystore related 
+     *         issues occur.
+     * @throws UncheckedIOException If there was an I/O problem with reading 
+     *         keystore related data.
+     */
     private SSLContext createSSLContext() {
         try {
-            var keyManagers = getKeyManagers(keyStoreType, keyStorePath, keyStorePassword);
-            var trustManagers = getTrustManagers(trustStoreType, trustStorePath, trustStorePassword);
+            var keyManagers = getKeyManagers();
+            var trustManagers = getTrustManagers();
             var context = SSLContext.getInstance("TLSv1.3");
             context.init(keyManagers, trustManagers, new SecureRandom());
             
@@ -87,43 +135,118 @@ final class SimpleSSLContextImpl implements SimpleSSLContext {
         }
     }
     
-    private static KeyManager[] getKeyManagers(KeyStoreType storeType, Path storePath, 
-            char[] storePassword) throws NoSuchAlgorithmException, KeyStoreException, 
-            IOException, CertificateException, UnrecoverableKeyException {
+    /**
+     * Initializes a key manager factory with a source of provider-specific key 
+     * material, and returns one key manager for each type of key material.
+     * 
+     * @return The key managers for the keystore.
+     * 
+     * @throws IOException If there is an I/O or format problem with the 
+     *         keystore data, if a password is required but not given, or if the 
+     *         given password was incorrect. If the error is due to a wrong 
+     *         password, the {@link Throwable#getCause cause} of the 
+     *         {@code IOException} should be an 
+     *         {@code UnrecoverableKeyException}.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code KeyManagerFactorySpi} implementation for the specified 
+     *         algorithm, or if the specified algorithm is not available from 
+     *         the specified provider, or if the algorithm used to check the 
+     *         integrity of the keystore cannot be found.
+     * @throws KeyStoreException If no {@code Provider} supports a 
+     *         {@code KeyStoreSpi} implementation for the specified type, or if 
+     *         the key manager initialization operation fails.
+     * @throws CertificateException If any of the certificates in the keystore 
+     *         could not be loaded.
+     * @throws UnrecoverableKeyException If the key cannot be recovered (e.g. 
+     *         the given password is wrong).
+     */
+    private KeyManager[] getKeyManagers() 
+            throws IOException, NoSuchAlgorithmException, KeyStoreException, 
+                   CertificateException, UnrecoverableKeyException {
         
-        if (storePath == null) {
+        if (keyStorePath == null) {
             return new KeyManager[0];
         }
         
         var kmf = KeyManagerFactory.getInstance("SunX509");
-        var keyStore = getKeyStore(storeType, storePath, storePassword);
-        kmf.init(keyStore, storePassword);
+        var keyStore = getKeyStore(keyStoreType, keyStorePath, keyStorePassword);
+        kmf.init(keyStore, keyStorePassword);
         
         return kmf.getKeyManagers();
     }
     
-    private static TrustManager[] getTrustManagers(KeyStoreType storeType, Path storePath, 
-            char[] storePassword) throws NoSuchAlgorithmException, KeyStoreException, 
-            IOException, CertificateException {
+    /**
+     * Initializes a trust manager factory with a source of provider-specific
+     * trust material, and returns one trust manager for each type of trust 
+     * material.
+     * 
+     * @return The trust managers for the truststore.
+     * 
+     * @throws IOException If there is an I/O or format problem with the 
+     *         keystore data, if a password is required but not given, or if the 
+     *         given password was incorrect. If the error is due to a wrong 
+     *         password, the {@link Throwable#getCause cause} of the 
+     *         {@code IOException} should be an 
+     *         {@code UnrecoverableKeyException}.
+     * @throws NoSuchAlgorithmException If no {@code Provider} supports a 
+     *         {@code TrustManagerFactorySpi} implementation for the specified 
+     *         algorithm, or if the algorithm used to check the integrity of the 
+     *         keystore cannot be found.
+     * @throws KeyStoreException If no {@code Provider} supports a 
+     *         {@code KeyStoreSpi} implementation for the specified type, or if 
+     *         the trust manager initialization operation fails.
+     * @throws CertificateException If any of the certificates in the keystore 
+     *         could not be loaded.
+     */
+    private TrustManager[] getTrustManagers() 
+            throws IOException, NoSuchAlgorithmException, KeyStoreException, 
+                   CertificateException {
         
-        if (storePath == null) {
+        if (trustStorePath == null) {
             return new TrustManager[0];
         }
         
         var tmf = TrustManagerFactory.getInstance("SunX509");
-        var trustStore = getKeyStore(storeType, storePath, storePassword);
+        var trustStore = getKeyStore(trustStoreType, trustStorePath, 
+                trustStorePassword);
         tmf.init(trustStore);
         
         return tmf.getTrustManagers();
     }
     
-    private static KeyStore getKeyStore(KeyStoreType storeType, Path storePath, char[] storePassword) 
-            throws KeyStoreException, IOException, NoSuchAlgorithmException, 
-            CertificateException {
+    /**
+     * Loads a keystore or truststore from file with or without a password.
+     * 
+     * @param storeType The type of keystore with PKCS12 being the default.
+     * @param storePath The path to the keystore file containing key or trust 
+     *        material.
+     * @param storePassword The password used to check the integrity of the 
+     *        keystore, the password used to unlock the keystore, or 
+     *        {@code null}.
+     * @return A keystore instance of the specified type to be used as a 
+     *         keystore or a truststore.
+     * 
+     * @throws IOException If there is an I/O or format problem with the 
+     *         keystore data, if a password is required but not given, or if the 
+     *         given password was incorrect. If the error is due to a wrong 
+     *         password, the {@link Throwable#getCause cause} of the 
+     *         {@code IOException} should be an 
+     *         {@code UnrecoverableKeyException}.
+     * @throws KeyStoreException If no {@code Provider} supports a 
+     *         {@code KeyStoreSpi} implementation for the specified type.
+     * @throws NoSuchAlgorithmException If the algorithm used to check the 
+     *         integrity of the keystore cannot be found.
+     * @throws CertificateException If any of the certificates in the keystore 
+     *         could not be loaded.
+     */
+    private static KeyStore getKeyStore(KeyStoreType storeType, Path storePath, 
+            char[] storePassword) 
+            throws IOException, KeyStoreException, NoSuchAlgorithmException, 
+                   CertificateException {
 
         var ks = KeyStore.getInstance(storeType.value);
 
-        try ( var inputStream = new FileInputStream(storePath.toFile())) {
+        try (var inputStream = new FileInputStream(storePath.toFile())) {
             ks.load(inputStream, storePassword);
         }
 
