@@ -2,8 +2,8 @@
 
 # gitignore formatted string of files to ignore.
 ignoreFiles = """
-.github/
-.mvn/
-docs/
-src/test/
+.github/**
+.mvn/**
+docs/**
+src/test/**
 """
