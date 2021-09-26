@@ -131,8 +131,20 @@ public final class CertUtil {
      * The supported hashing algorithms for generating a certificate thumbprint.
      */
     public enum HashType {
+        
+        /**
+         * MD5 hashing algorithm.
+         */
         MD5("MD5"),
+        
+        /**
+         * SHA-1 hashing algorithm.
+         */
         SHA_1("SHA-1"),
+        
+        /**
+         * SHA-256 hashing algorithm.
+         */
         SHA_256("SHA-256");
         
         /**

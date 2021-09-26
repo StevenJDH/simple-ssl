@@ -22,18 +22,44 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
+/**
+ * Git Build Info.
+ * 
+ * <p>Provides a way to access build information from when the library was 
+ * created.
+ * 
+ * @since 1.0
+ */
 public final class BuildInfo {
     
     private final ObjectMapper mapper;
     
+    /**
+     * Default constructor to set a default {@link ObjectMapper}.
+     */
     public BuildInfo() {
         this(new ObjectMapper());
     }
     
+    /**
+     * A constructor to set a custom {@link ObjectMapper}, which is useful for 
+     * testing.
+     * 
+     * @param mapper Custom {@code ObjectMapper}.
+     */
     public BuildInfo(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 
+    /**
+     * Gets the different properties defined in the git.properties file from 
+     * when the library was built.
+     * 
+     * @return Object instance containing git properties.
+     * 
+     * @throws UncheckedIOException If there was an I/O problem with reading the  
+     *         git.properties file.
+     */
     public GitProperties getGitProperties() {
         try (var is = getClass().getClassLoader()
                 .getResourceAsStream("git.properties")) {
