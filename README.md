@@ -26,7 +26,7 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 ## Features
 * Load KeyStores/TrustStores in PKCS#12 and JKS formats (*.p12, *.pfx, *.jks, *.ks).
 * Load Base64 encoded X.509 certificates and certificate chains (*.pem, *.crt, *.cer, *.pub).
-* Load Base64 encoded X.509 encrypted/unencrypted private keys in PKCS#1 and PKCS#8 formats (*.pem, *.key).
+* Load Base64 encoded encrypted/unencrypted private keys in PKCS#1 and PKCS#8 formats (*.pem, *.key).
 * Certificate utilities for common tasks.
 * Support for overriding to provide different implementations.
 
