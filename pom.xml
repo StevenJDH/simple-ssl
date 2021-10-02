@@ -415,7 +415,7 @@
                             <reportOutputDirectory>${project.basedir}/docs/apidocs</reportOutputDirectory>
                             <!-- Set to ${project.version} if using javadoc:javadoc goal with above. -->
                             <destDir>${project.basedir}/docs/apidocs/${project.version}</destDir>
-                            <show>protected</show>
+                            <show>package</show>
                             <!-- Suppresses the timestamp, which is hidden in an HTML comment. -->
                             <notimestamp>true</notimestamp>
                         </configuration>
