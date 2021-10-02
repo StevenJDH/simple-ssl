@@ -35,8 +35,8 @@ class PEMContextBuilderImpl implements PEMContext.Builder {
     KeyStoreType trustStoreType = KeyStoreType.PKCS12;
     
     @Override
-    public PEMContext.Builder withPublicKey(Path keyPath) {
-        publicKeyPath = keyPath;
+    public PEMContext.Builder withPublicKey(Path certPath) {
+        publicKeyPath = certPath;
         return this;
     }
 

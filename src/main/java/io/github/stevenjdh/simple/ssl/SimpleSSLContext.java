@@ -25,7 +25,7 @@ import java.nio.file.Path;
 /**
  * A Simple SSLContext.
  * 
- * A {@code SimpleSSLContext} can be used to build a custom SSLContext for 
+ * <p>A {@code SimpleSSLContext} can be used to build a custom SSLContext for 
  * secure communication using an optional set of keystore and truststore 
  * instances.
  * 
