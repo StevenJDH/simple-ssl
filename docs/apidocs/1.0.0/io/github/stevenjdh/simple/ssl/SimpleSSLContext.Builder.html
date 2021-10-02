@@ -76,11 +76,25 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="description">
 <dl class="notes">
+<dt>All Known Implementing Classes:</dt>
+<dd><code><a href="SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></code></dd>
+</dl>
+<dl class="notes">
 <dt>Enclosing interface:</dt>
 <dd><a href="SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext</a></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public static interface </span><span class="element-name type-name-label">SimpleSSLContext.Builder</span></div>
+<div class="block">A builder of <a href="SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SSLContext instances</a>.
+ 
+ <p>Builders are created by invoking <a href="SimpleSSLContext.html#newBuilder()"><code>newBuilder</code></a>. Each of the setter methods modifies the state of the builder
+ and returns the same instance. Builders are not thread-safe and should 
+ not be used concurrently from multiple threads without external 
+ synchronization.</div>
+<dl class="notes">
+<dt>Since:</dt>
+<dd>1.0</dd>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -97,21 +111,34 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link">SSLContext</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#build()">build</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Returns a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance built from the current 
+ state of this builder.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType</a></span>&#8203;(<a href="SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Optionally sets the keystore type with PKCS12 being the default.</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType</a></span>&#8203;(<a href="SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Optionally sets the truststore type with PKCS12 being the default.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#withKeyStore(java.nio.file.Path,char%5B%5D)">withKeyStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;keyMaterialPath,
  char[]&nbsp;password)</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Optionally sets the keystore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;trustMaterialPath,
  char[]&nbsp;password)</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Optionally sets the truststore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</div>
 </div>
 </div>
 </div>
@@ -131,6 +158,18 @@ loadScripts(document, 'script');</script>
 <h3>withKeyStore</h3>
 <div class="member-signature"><span class="return-type"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span>&nbsp;<span class="element-name">withKeyStore</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;keyMaterialPath,
  char[]&nbsp;password)</span></div>
+<div class="block">Optionally sets the keystore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>keyMaterialPath</code> - The path to the keystore file containing key 
+        material.</dd>
+<dd><code>password</code> - The password used to unlock the keystore. If this is 
+        set to null or an empty char[], it will be assumed that a 
+        password is not needed.</dd>
+<dt>Returns:</dt>
+<dd>This builder.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -138,24 +177,56 @@ loadScripts(document, 'script');</script>
 <h3>withTrustStore</h3>
 <div class="member-signature"><span class="return-type"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span>&nbsp;<span class="element-name">withTrustStore</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;trustMaterialPath,
  char[]&nbsp;password)</span></div>
+<div class="block">Optionally sets the truststore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>trustMaterialPath</code> - The path to the truststore file containing 
+        trust material.</dd>
+<dd><code>password</code> - The password used to unlock the truststore. If this is 
+        set to null or an empty char[], it will be assumed that a 
+        password is not needed.</dd>
+<dt>Returns:</dt>
+<dd>This builder.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">
 <h3>keyStoreType</h3>
 <div class="member-signature"><span class="return-type"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span>&nbsp;<span class="element-name">keyStoreType</span>&#8203;<span class="parameters">(<a href="SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</span></div>
+<div class="block">Optionally sets the keystore type with PKCS12 being the default.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The keystore type such as PKCS12 or the legacy JKS.</dd>
+<dt>Returns:</dt>
+<dd>This builder.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">
 <h3>trustStoreType</h3>
 <div class="member-signature"><span class="return-type"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span>&nbsp;<span class="element-name">trustStoreType</span>&#8203;<span class="parameters">(<a href="SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</span></div>
+<div class="block">Optionally sets the truststore type with PKCS12 being the default.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - The truststore type such as PKCS12 or the legacy JKS.</dd>
+<dt>Returns:</dt>
+<dd>This builder.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="build()">
 <h3>build</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link">SSLContext</a></span>&nbsp;<span class="element-name">build</span>()</div>
+<div class="block">Returns a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance built from the current 
+ state of this builder.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A new <code>SSLContext</code>.</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -71,8 +71,21 @@ loadScripts(document, 'script');</script>
 <h1 title="Interface SimpleSSLContext" class="title">Interface SimpleSSLContext</h1>
 </div>
 <section class="description">
+<dl class="notes">
+<dt>All Known Implementing Classes:</dt>
+<dd><code><a href="SimpleSSLContextImpl.html" title="class in io.github.stevenjdh.simple.ssl">SimpleSSLContextImpl</a></code></dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">SimpleSSLContext</span></div>
+<div class="block">A Simple SSLContext.
+ 
+ <p>A <code>SimpleSSLContext</code> can be used to build a custom SSLContext for 
+ secure communication using an optional set of keystore and truststore 
+ instances.</div>
+<dl class="notes">
+<dt>Since:</dt>
+<dd>1.0</dd>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -87,10 +100,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><span class="member-name-link"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">A builder of <a href="SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SSLContext instances</a>.</div>
+</div>
 <div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><span class="member-name-link"><a href="SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a></span></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">The supported keystore formats.</div>
+</div>
 </div>
 </section>
 </li>
@@ -106,16 +123,28 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab1 method-summary-table"><code>static <a href="../git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab1 method-summary-table"><code><span class="member-name-link"><a href="#getBuildInfo()">getBuildInfo</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab1 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab1 method-summary-table">
+<div class="block">Gets build information from when the library was created.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab1 method-summary-table"><code>static <a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab1 method-summary-table"><code><span class="member-name-link"><a href="#newBuilder()">newBuilder</a></span>()</code></div>
-<div class="col-last odd-row-color method-summary-table-tab1 method-summary-table">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table-tab1 method-summary-table"><code>static io.github.stevenjdh.simple.ssl.PEMContext.Builder</code></div>
+<div class="col-last odd-row-color method-summary-table-tab1 method-summary-table">
+<div class="block">Creates a new <a href="SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>SimpleSSLContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using an optional set of keystore and 
+ truststore instances.</div>
+</div>
+<div class="col-first even-row-color method-summary-table-tab1 method-summary-table"><code>static <a href="PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab1 method-summary-table"><code><span class="member-name-link"><a href="#newPEMContextBuilder()">newPEMContextBuilder</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab1 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab1 method-summary-table">
+<div class="block">Create new <a href="PEMContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>PEMContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using PEM files.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab1 method-summary-table"><code>static <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link">SSLContext</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab1 method-summary-table"><code><span class="member-name-link"><a href="#newSSLContext()">newSSLContext</a></span>()</code></div>
-<div class="col-last odd-row-color method-summary-table-tab1 method-summary-table">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab1 method-summary-table">
+<div class="block">Creates a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance with a default context similar 
+ to <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html#getDefault()" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext.getDefault()</code></a>.</div>
+</div>
 </div>
 </div>
 </section>
@@ -133,24 +162,50 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="newSSLContext()">
 <h3>newSSLContext</h3>
 <div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link">SSLContext</a></span>&nbsp;<span class="element-name">newSSLContext</span>()</div>
+<div class="block">Creates a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance with a default context similar 
+ to <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html#getDefault()" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext.getDefault()</code></a>.
+ 
+ <p><b>Note:</b> The <code>SSLContext</code> will use TLS v1.3 by default.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A new <code>SSLContext</code>.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="newBuilder()">
 <h3>newBuilder</h3>
 <div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span>&nbsp;<span class="element-name">newBuilder</span>()</div>
+<div class="block">Creates a new <a href="SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>SimpleSSLContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using an optional set of keystore and 
+ truststore instances.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A <code>SimpleSSLContext.Builder</code>.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="newPEMContextBuilder()">
 <h3>newPEMContextBuilder</h3>
-<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type">io.github.stevenjdh.simple.ssl.PEMContext.Builder</span>&nbsp;<span class="element-name">newPEMContextBuilder</span>()</div>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></span>&nbsp;<span class="element-name">newPEMContextBuilder</span>()</div>
+<div class="block">Create new <a href="PEMContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>PEMContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using PEM files.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>A <code>PEMContext.Builder</code>.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getBuildInfo()">
 <h3>getBuildInfo</h3>
 <div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="../git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></span>&nbsp;<span class="element-name">getBuildInfo</span>()</div>
+<div class="block">Gets build information from when the library was created.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Build information around specific git commit.</dd>
+</dl>
 </section>
 </li>
 </ul>

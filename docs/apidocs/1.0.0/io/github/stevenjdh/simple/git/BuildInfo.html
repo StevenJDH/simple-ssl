@@ -81,6 +81,14 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">BuildInfo</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Git Build Info.
+ 
+ <p>Provides a way to access build information from when the library was 
+ created.</div>
+<dl class="notes">
+<dt>Since:</dt>
+<dd>1.0</dd>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -93,9 +101,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E()">BuildInfo</a></span>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Default constructor to set a default <code>ObjectMapper</code>.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.fasterxml.jackson.databind.ObjectMapper)">BuildInfo</a></span>&#8203;(com.fasterxml.jackson.databind.ObjectMapper&nbsp;mapper)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">A constructor to set a custom <code>ObjectMapper</code>, which is useful for 
+ testing.</div>
+</div>
 </div>
 </section>
 </li>
@@ -112,7 +125,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getGitProperties()">getGitProperties</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
+<div class="block">Gets the different properties defined in the git.properties file from 
+ when the library was built.</div>
+</div>
 </div>
 </div>
 </div>
@@ -134,12 +150,19 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;()">
 <h3>BuildInfo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BuildInfo</span>()</div>
+<div class="block">Default constructor to set a default <code>ObjectMapper</code>.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(com.fasterxml.jackson.databind.ObjectMapper)">
 <h3>BuildInfo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BuildInfo</span>&#8203;<span class="parameters">(com.fasterxml.jackson.databind.ObjectMapper&nbsp;mapper)</span></div>
+<div class="block">A constructor to set a custom <code>ObjectMapper</code>, which is useful for 
+ testing.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>mapper</code> - Custom <code>ObjectMapper</code>.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -154,6 +177,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getGitProperties()">
 <h3>getGitProperties</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></span>&nbsp;<span class="element-name">getGitProperties</span>()</div>
+<div class="block">Gets the different properties defined in the git.properties file from 
+ when the library was built.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Object instance containing git properties.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/io/UncheckedIOException.html" title="class or interface in java.io" class="external-link">UncheckedIOException</a></code> - If there was an I/O problem with reading the  
+         git.properties file.</dd>
+</dl>
 </section>
 </li>
 </ul>

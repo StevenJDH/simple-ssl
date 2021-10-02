@@ -56,14 +56,33 @@ loadScripts(document, 'script');</script>
 <a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#build()">build()</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Returns a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance built from the current 
+ state of this builder.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#build()">build()</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html#build()">build()</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></dt>
+<dd>
+<div class="block">Returns a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance built from the current 
+ state of this builder.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#build()">build()</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/stevenjdh/simple/git/BuildInfo.html" title="class in io.github.stevenjdh.simple.git"><span class="type-name-link">BuildInfo</span></a> - Class in <a href="io/github/stevenjdh/simple/git/package-summary.html">io.github.stevenjdh.simple.git</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Git Build Info.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/BuildInfo.html#%3Cinit%3E()">BuildInfo()</a></span> - Constructor for class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/BuildInfo.html" title="class in io.github.stevenjdh.simple.git">BuildInfo</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Default constructor to set a default <code>ObjectMapper</code>.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/BuildInfo.html#%3Cinit%3E(com.fasterxml.jackson.databind.ObjectMapper)">BuildInfo(ObjectMapper)</a></span> - Constructor for class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/BuildInfo.html" title="class in io.github.stevenjdh.simple.git">BuildInfo</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A constructor to set a custom <code>ObjectMapper</code>, which is useful for 
+ testing.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
@@ -74,6 +93,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html" title="enum class in io.github.stevenjdh.simple.security.cert"><span class="type-name-link">CertUtil.HashType</span></a> - Enum Class in <a href="io/github/stevenjdh/simple/security/cert/package-summary.html">io.github.stevenjdh.simple.security.cert</a></dt>
 <dd>
 <div class="block">The supported hashing algorithms for generating a certificate thumbprint.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextImpl.html#create(io.github.stevenjdh.simple.ssl.PEMContextBuilderImpl)">create(PEMContextBuilderImpl)</a></span> - Static method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextImpl</a></dt>
+<dd>
+<div class="block">Creates a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance that is initialized with an 
+ optional set of key and trust managers, and a source of secure random 
+ bytes.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContextImpl.html#create(io.github.stevenjdh.simple.ssl.SSLContextBuilderImpl)">create(SSLContextBuilderImpl)</a></span> - Static method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContextImpl.html" title="class in io.github.stevenjdh.simple.ssl">SimpleSSLContextImpl</a></dt>
+<dd>
+<div class="block">Creates a <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance that is initialized with an 
+ optional set of key and trust managers, and a source of secure random 
+ bytes.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
@@ -104,7 +135,9 @@ loadScripts(document, 'script');</script>
  <code>cause</code>).</div>
 </dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html#getBuildInfo()">getBuildInfo()</a></span> - Static method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets build information from when the library was created.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitBranch()">getGitBranch()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitBuildHost()">getGitBuildHost()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
@@ -138,13 +171,26 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitLocalBranchBehind()">getGitLocalBranchBehind()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/BuildInfo.html#getGitProperties()">getGitProperties()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/BuildInfo.html" title="class in io.github.stevenjdh.simple.git">BuildInfo</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets the different properties defined in the git.properties file from 
+ when the library was built.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitRemoteOriginUrl()">getGitRemoteOriginUrl()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitTags()">getGitTags()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/git/GitProperties.html#getGitTotalCommitCount()">getGitTotalCommitCount()</a></span> - Method in class io.github.stevenjdh.simple.git.<a href="io/github/stevenjdh/simple/git/GitProperties.html" title="class in io.github.stevenjdh.simple.git">GitProperties</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextImpl.html#getSSLContext()">getSSLContext()</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextImpl</a></dt>
+<dd>
+<div class="block">Gets the stored <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance that was created via the 
+ builder.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContextImpl.html#getSSLContext()">getSSLContext()</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContextImpl.html" title="class in io.github.stevenjdh.simple.ssl">SimpleSSLContextImpl</a></dt>
+<dd>
+<div class="block">Gets the stored <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance that was created via the 
+ builder.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/security/cert/CertUtil.html#getThumbprint(java.security.cert.X509Certificate,java.lang.String,io.github.stevenjdh.simple.security.cert.CertUtil.HashType)">getThumbprint(X509Certificate, String, CertUtil.HashType)</a></span> - Static method in class io.github.stevenjdh.simple.security.cert.<a href="io/github/stevenjdh/simple/security/cert/CertUtil.html" title="class in io.github.stevenjdh.simple.security.cert">CertUtil</a></dt>
 <dd>
 <div class="block">Gets the thumbprint of a certificate using either MD5, SHA-1, or SHA-256.</div>
@@ -170,30 +216,93 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html#JKS">JKS</a></span> - Enum constant in enum class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JKS format.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:K">K</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#keyStorePassword">keyStorePassword</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#keyStorePassword">keyStorePassword</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#keyStorePath">keyStorePath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#keyStorePath">keyStorePath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#keyStoreType">keyStoreType</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#keyStoreType">keyStoreType</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the keystore type being built with PKCS12 being the 
+ default.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the keystore type with PKCS12 being the default.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html#MD5">MD5</a></span> - Enum constant in enum class io.github.stevenjdh.simple.security.cert.<a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html" title="enum class in io.github.stevenjdh.simple.security.cert">CertUtil.HashType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">MD5 hashing algorithm.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html#newBuilder()">newBuilder()</a></span> - Static method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates a new <a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>SimpleSSLContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using an optional set of keystore and 
+ truststore instances.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html#newPEMContextBuilder()">newPEMContextBuilder()</a></span> - Static method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Create new <a href="io/github/stevenjdh/simple/ssl/PEMContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>PEMContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using PEM files.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html#newSSLContext()">newSSLContext()</a></span> - Static method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates a new <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance with a default context similar 
+ to <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html#getDefault()" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext.getDefault()</code></a>.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
+<dt><a href="io/github/stevenjdh/simple/ssl/PEMContext.html" title="interface in io.github.stevenjdh.simple.ssl"><span class="type-name-link">PEMContext</span></a> - Interface in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>
+<div class="block">A PEM derived SSLContext.</div>
+</dd>
+<dt><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl"><span class="type-name-link">PEMContext.Builder</span></a> - Interface in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>
+<div class="block">A builder of <a href="io/github/stevenjdh/simple/ssl/PEMContext.html" title="interface in io.github.stevenjdh.simple.ssl">PEM derived SSLContext instances</a>.</div>
+</dd>
+<dt><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl"><span class="type-name-link">PEMContextBuilderImpl</span></a> - Class in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#%3Cinit%3E()">PEMContextBuilderImpl()</a></span> - Constructor for class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/stevenjdh/simple/ssl/PEMContextImpl.html" title="class in io.github.stevenjdh.simple.ssl"><span class="type-name-link">PEMContextImpl</span></a> - Class in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>
+<div class="block">PEM derived SSLContext implementation.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html#PKCS12">PKCS12</a></span> - Enum constant in enum class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a></dt>
+<dd>
+<div class="block">PKCS#12 format.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#privateKeyCertChainPath">privateKeyCertChainPath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#privateKeyPassword">privateKeyPassword</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#privateKeyPath">privateKeyPath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#publicKeyPath">publicKeyPath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
@@ -206,15 +315,47 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#saveKeyStore(java.nio.file.Path,char%5B%5D)">saveKeyStore(Path, char[])</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally saves the built keystore to the provided path, and 
+ protects its integrity with a password.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#saveKeyStore(java.nio.file.Path,char%5B%5D)">saveKeyStore(Path, char[])</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#saveTrustStore(java.nio.file.Path,char%5B%5D)">saveTrustStore(Path, char[])</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally saves the built truststore to the provided path, and 
+ protects its integrity with a password.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#saveTrustStore(java.nio.file.Path,char%5B%5D)">saveTrustStore(Path, char[])</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html#SHA_1">SHA_1</a></span> - Enum constant in enum class io.github.stevenjdh.simple.security.cert.<a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html" title="enum class in io.github.stevenjdh.simple.security.cert">CertUtil.HashType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">SHA-1 hashing algorithm.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html#SHA_256">SHA_256</a></span> - Enum constant in enum class io.github.stevenjdh.simple.security.cert.<a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html" title="enum class in io.github.stevenjdh.simple.security.cert">CertUtil.HashType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">SHA-256 hashing algorithm.</div>
+</dd>
 <dt><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl"><span class="type-name-link">SimpleSSLContext</span></a> - Interface in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A Simple SSLContext.</div>
+</dd>
 <dt><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl"><span class="type-name-link">SimpleSSLContext.Builder</span></a> - Interface in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A builder of <a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl">SSLContext instances</a>.</div>
+</dd>
 <dt><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl"><span class="type-name-link">SimpleSSLContext.KeyStoreType</span></a> - Enum Class in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>
+<div class="block">The supported keystore formats.</div>
+</dd>
+<dt><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContextImpl.html" title="class in io.github.stevenjdh.simple.ssl"><span class="type-name-link">SimpleSSLContextImpl</span></a> - Class in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>
+<div class="block">Simple SSLContext implementation.</div>
+</dd>
+<dt><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl"><span class="type-name-link">SSLContextBuilderImpl</span></a> - Class in <a href="io/github/stevenjdh/simple/ssl/package-summary.html">io.github.stevenjdh.simple.ssl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#%3Cinit%3E()">SSLContextBuilderImpl()</a></span> - Constructor for class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -237,7 +378,30 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html#toString()">toString()</a></span> - Method in enum class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#trustStorePassword">trustStorePassword</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#trustStorePassword">trustStorePassword</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#trustStorePath">trustStorePath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#trustStorePath">trustStorePath</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#trustStoreType">trustStoreType</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#trustStoreType">trustStoreType</a></span> - Variable in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the truststore type being built with PKCS12 being the 
+ default.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the truststore type with PKCS12 being the default.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType(SimpleSSLContext.KeyStoreType)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
@@ -247,7 +411,9 @@ loadScripts(document, 'script');</script>
 <div class="block">String friendly representation of the hashing algorithm.</div>
 </dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html#value">value</a></span> - Variable in enum class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">String friendly representation of the keystore formats.</div>
+</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum class io.github.stevenjdh.simple.security.cert.<a href="io/github/stevenjdh/simple/security/cert/CertUtil.HashType.html" title="enum class in io.github.stevenjdh.simple.security.cert">CertUtil.HashType</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
@@ -270,8 +436,38 @@ the order they are declared.</div>
 <h2 class="title" id="I:W">W</h2>
 <dl class="index">
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html#withKeyStore(java.nio.file.Path,char%5B%5D)">withKeyStore(Path, char[])</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the keystore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#withKeyStore(java.nio.file.Path,char%5B%5D)">withKeyStore(Path, char[])</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#withPrivateKey(java.nio.file.Path,java.nio.file.Path)">withPrivateKey(Path, Path)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the keystore configuration using a Base64 encoded 
+ private key for building an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#withPrivateKey(java.nio.file.Path,java.nio.file.Path)">withPrivateKey(Path, Path)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#withPrivateKeyPassword(char%5B%5D)">withPrivateKeyPassword(char[])</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the password for the encrypted private key material.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#withPrivateKeyPassword(char%5B%5D)">withPrivateKeyPassword(char[])</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html#withPublicKey(java.nio.file.Path)">withPublicKey(Path)</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">PEMContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the truststore configuration using a Base64 encoded 
+ certificate or certificate chain for building an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html#withPublicKey(java.nio.file.Path)">withPublicKey(Path)</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/PEMContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">PEMContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore(Path, char[])</a></span> - Method in interface io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></dt>
+<dd>
+<div class="block">Optionally sets the truststore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore(Path, char[])</a></span> - Method in class io.github.stevenjdh.simple.ssl.<a href="io/github/stevenjdh/simple/ssl/SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>

@@ -65,6 +65,15 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="io.github.stevenjdh.simple.ssl">
 <h2>Uses of <a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a> in <a href="../package-summary.html">io.github.stevenjdh.simple.ssl</a></h2>
+<div class="caption"><span>Classes in <a href="../package-summary.html">io.github.stevenjdh.simple.ssl</a> that implement <a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>(package private) class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><span class="member-name-link"><a href="../SSLContextBuilderImpl.html" title="class in io.github.stevenjdh.simple.ssl">SSLContextBuilderImpl</a></span></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">io.github.stevenjdh.simple.ssl</a> that return <a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -72,19 +81,47 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second even-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType</a></span>&#8203;(<a href="../SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static <a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">SimpleSSLContext.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.html#newBuilder()">newBuilder</a></span>()</code></div>
+<div class="col-last even-row-color">
+<div class="block">Optionally sets the keystore type with PKCS12 being the default.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SSLContextBuilderImpl.</span><code><span class="member-name-link"><a href="../SSLContextBuilderImpl.html#keyStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">keyStoreType</a></span>&#8203;(<a href="../SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static <a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">SimpleSSLContext.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.html#newBuilder()">newBuilder</a></span>()</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new <a href="../SimpleSSLContext.html" title="interface in io.github.stevenjdh.simple.ssl"><code>SimpleSSLContext</code></a> builder to configure a custom 
+ <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a> instance using an optional set of keystore and 
+ truststore instances.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType</a></span>&#8203;(<a href="../SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Optionally sets the truststore type with PKCS12 being the default.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType</a></span>&#8203;(<a href="../SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">SSLContextBuilderImpl.</span><code><span class="member-name-link"><a href="../SSLContextBuilderImpl.html#trustStoreType(io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType)">trustStoreType</a></span>&#8203;(<a href="../SimpleSSLContext.KeyStoreType.html" title="enum class in io.github.stevenjdh.simple.ssl">SimpleSSLContext.KeyStoreType</a>&nbsp;type)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#withKeyStore(java.nio.file.Path,char%5B%5D)">withKeyStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;keyMaterialPath,
  char[]&nbsp;password)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Optionally sets the keystore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
-<div class="col-second even-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;trustMaterialPath,
+<div class="col-second even-row-color"><span class="type-name-label">SSLContextBuilderImpl.</span><code><span class="member-name-link"><a href="../SSLContextBuilderImpl.html#withKeyStore(java.nio.file.Path,char%5B%5D)">withKeyStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;keyMaterialPath,
+ char[]&nbsp;password)</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SimpleSSLContext.Builder.</span><code><span class="member-name-link"><a href="../SimpleSSLContext.Builder.html#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;trustMaterialPath,
+ char[]&nbsp;password)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Optionally sets the truststore configuration to be used when building 
+ an <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/javax/net/ssl/SSLContext.html" title="class or interface in javax.net.ssl" class="external-link"><code>SSLContext</code></a>.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="../SimpleSSLContext.Builder.html" title="interface in io.github.stevenjdh.simple.ssl">SimpleSSLContext.Builder</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">SSLContextBuilderImpl.</span><code><span class="member-name-link"><a href="../SSLContextBuilderImpl.html#withTrustStore(java.nio.file.Path,char%5B%5D)">withTrustStore</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;trustMaterialPath,
  char[]&nbsp;password)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
