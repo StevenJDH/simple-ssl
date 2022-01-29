@@ -35,7 +35,7 @@ jobs:
     - name: Install Temurin OpenJDK
       uses: actions/setup-java@v2
       with:
-        java-version: 16
+        java-version: 17
         distribution: 'temurin'
         architecture: x64
 
