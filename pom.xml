@@ -46,25 +46,35 @@
     </ciManagement>
     
     <properties>
-        <java.version>16</java.version>
+        <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
         <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+        <!-- Dependency versions -->
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <jackson-databind.version>2.13.1</jackson-databind.version>
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <assertj-core.version>3.22.0</assertj-core.version>
+        <mockito-junit-jupiter.version>4.3.1</mockito-junit-jupiter.version>
+        <wiremock-jre8-standalone.version>2.32.0</wiremock-jre8-standalone.version>
+        <slf4j-nop.version>1.7.35</slf4j-nop.version>
+        <maven-model.version>3.8.4</maven-model.version>
         <!-- Plugin Versions -->
-        <maven.compiler.version>3.8.1</maven.compiler.version>
-        <maven.surefire.version>2.22.2</maven.surefire.version>
-        <maven.failsafe.version>2.22.2</maven.failsafe.version>
+        <maven-compiler.version>3.9.0</maven-compiler.version>
+        <maven-surefire.version>2.22.2</maven-surefire.version>
+        <maven-failsafe.version>2.22.2</maven-failsafe.version>
         <jacoco.version>0.8.7</jacoco.version>
-        <git.commit.id.maven.version>5.0.0</git.commit.id.maven.version>
+        <git-commit-id-maven.version>5.0.0</git-commit-id-maven.version>
         <jsonschema2pojo.version>1.1.1</jsonschema2pojo.version>
-        <maven.enforcer.version>3.0.0</maven.enforcer.version>
-        <nexus.staging.version>1.6.7</nexus.staging.version>
-        <maven.gpg.version>3.0.1</maven.gpg.version>
-        <maven.javadoc.version>3.3.1</maven.javadoc.version>
-        <maven.source.version>3.2.1</maven.source.version>
+        <maven-enforcer.version>3.0.0</maven-enforcer.version>
+        <nexus-staging.version>1.6.8</nexus-staging.version>
+        <maven-gpg.version>3.0.1</maven-gpg.version>
+        <maven-javadoc.version>3.3.1</maven-javadoc.version>
+        <maven-source.version>3.2.1</maven-source.version>
         <!-- JaCoCo Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
@@ -84,50 +94,50 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <!-- Required for jsonschema2pojo-maven-plugin -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.12.4</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.7.2</version>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.20.2</version>
+            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.11.2</version>
+            <version>${mockito-junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-standalone</artifactId>
-            <version>2.27.2</version>
+            <artifactId>wiremock-jre8-standalone</artifactId>
+            <version>${wiremock-jre8-standalone.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- For use by wiremock-standalone. -->
+        <!-- For use by wiremock-jre8-standalone. -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>1.7.32</version>
+            <version>${slf4j-nop.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-model</artifactId>
-            <version>3.8.2</version>
+            <version>${maven-model.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -149,7 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
@@ -157,12 +167,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
+                <version>${maven-surefire.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.failsafe.version}</version>
+                <version>${maven-failsafe.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -250,7 +260,7 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>${git.commit.id.maven.version}</version>
+                <version>${git-commit-id-maven.version}</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
@@ -325,7 +335,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.version}</version>
+                <version>${maven-enforcer.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -335,13 +345,14 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[16.0,)</version>
+                                    <version>[17.0,)</version>
                                 </requireJavaVersion>
                                 <requireJavaVendor>
                                     <level>WARN</level>
                                     <includes>
                                         <include>AdoptOpenJDK</include>
                                         <include>Eclipse Foundation</include>
+                                        <include>Eclipse Adoptium</include>
                                     </includes>
                                 </requireJavaVendor>
                                 <requireMavenVersion>
@@ -374,7 +385,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus.staging.version}</version>
+                        <version>${nexus-staging.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -385,7 +396,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.gpg.version}</version>
+                        <version>${maven-gpg.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -408,7 +419,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.version}</version>
+                        <version>${maven-javadoc.version}</version>
                         <configuration>
                             <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                             <!-- Ignored unless used with javadoc:javadoc goal and destDir. -->
@@ -431,7 +442,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven.source.version}</version>
+                        <version>${maven-source.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
