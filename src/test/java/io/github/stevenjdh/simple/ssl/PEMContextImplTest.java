@@ -35,6 +35,7 @@ import org.junit.jupiter.api.DisplayName;
 import io.github.stevenjdh.simple.ssl.SimpleSSLContext.KeyStoreType;
 import io.github.stevenjdh.support.BaseTestSupport;
 import java.lang.reflect.InvocationTargetException;
+import java.security.KeyStoreException;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
 class PEMContextImplTest extends BaseTestSupport {
@@ -213,17 +214,17 @@ class PEMContextImplTest extends BaseTestSupport {
     }
     
     @Test
-    @DisplayName("Should throw NullPointerException when using JKS and private key with null password.")
-    void Should_ThrowNullPointerException_When_UsingJKSAndPrivateKeyWithNullPasssword() {
+    @DisplayName("Should throw KeyStoreException when using JKS and private key with null password.")
+    void Should_ThrowKeyStoreException_When_UsingJKSAndPrivateKeyWithNullPasssword() {
         InvocationTargetException ex = catchThrowableOfType(() -> { 
             getKeyStoreMethod.invoke(PEMContextImpl.class, 
                     KeyStoreType.JKS, CLIENT_KEY.toPath(), null, 
                     null, CLIENT_CERT.toPath()); 
         }, InvocationTargetException.class);
         
-        assertThat(ex).hasRootCauseExactlyInstanceOf(NullPointerException.class)
+        assertThat(ex).hasRootCauseExactlyInstanceOf(KeyStoreException.class)
                 .getRootCause()
-                .hasMessage("Cannot read the array length because \"password\" is null");
+                .hasMessage("password can't be null");
     }
     
     @Test

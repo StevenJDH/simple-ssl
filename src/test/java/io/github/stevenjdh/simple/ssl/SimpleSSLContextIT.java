@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import wiremock.org.apache.http.HttpHeaders;
+import wiremock.org.apache.hc.core5.http.HttpHeaders;
 
 class SimpleSSLContextIT extends WireMockTestSupport {
 
@@ -124,8 +124,8 @@ class SimpleSSLContextIT extends WireMockTestSupport {
     }
     
     @Test
-    @DisplayName("Should throw IOException when client fails to authenticate itself.")
-    void Should_ThrowIOException_When_ClientFailsToAuthenticateItself() {
+    @DisplayName("Should throw SSLHandshakeException when client fails to authenticate itself.")
+    void Should_ThrowSSLHandshakeException_When_ClientFailsToAuthenticateItself() {
         startNewServer(new WireMockConfiguration()
             .port(8080)
             .httpsPort(8443)
@@ -152,8 +152,8 @@ class SimpleSSLContextIT extends WireMockTestSupport {
             client.send(request, HttpResponse.BodyHandlers.ofString()); 
         }, IOException.class);
         
-        assertThat(ex).isExactlyInstanceOf(IOException.class)
-                .hasMessage("HTTP/1.1 header parser received no bytes");
+        assertThat(ex).isExactlyInstanceOf(SSLHandshakeException.class)
+                .hasMessage("Received fatal alert: bad_certificate");
     }
     
     @Test

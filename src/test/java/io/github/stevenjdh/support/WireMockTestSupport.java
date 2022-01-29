@@ -23,8 +23,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import java.util.logging.Logger;
-import wiremock.org.apache.http.HttpHeaders;
-import wiremock.org.apache.http.HttpStatus;
+import wiremock.org.apache.hc.core5.http.HttpHeaders;
+import wiremock.org.apache.hc.core5.http.HttpStatus;
 
 public class WireMockTestSupport extends BaseTestSupport {
 
