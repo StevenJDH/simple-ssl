@@ -35,7 +35,7 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 * [Maven](https://maven.apache.org) 3.8.1+ CLI
 
 ## Installing the library
-The following shows you how to set up a maven project to make use of this library **once it becomes available**.
+The following shows you how to set up a maven project to make use of this library for both releases and snapshots.
 
 ### Add the dependency
 Add the dependency to the project's `pom.xml` file like in any other maven project.
