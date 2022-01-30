@@ -1,6 +1,6 @@
 /*
  * This file is part of Simple SSL <https://github.com/StevenJDH/simple-ssl>.
- * Copyright (C) 2021 Steven Jenkins De Haro.
+ * Copyright (C) 2021-2022 Steven Jenkins De Haro.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
