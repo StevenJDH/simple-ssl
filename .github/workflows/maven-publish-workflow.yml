@@ -6,6 +6,8 @@ on:
 
 env:
   MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version
+  # TODO: Remove nexus-staging-maven-plugin workaround after OSSRH-66257, NEXUS-26993 are fixed, possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91
+  MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
 jobs:
   publish:
