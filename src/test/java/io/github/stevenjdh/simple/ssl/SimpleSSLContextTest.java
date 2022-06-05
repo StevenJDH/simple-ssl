@@ -120,9 +120,9 @@ class SimpleSSLContextTest extends BaseTestSupport {
         
         assertThat(ex).hasMessage("keystore password was incorrect")
                 .hasCauseExactlyInstanceOf(IOException.class)
-                .getCause().hasMessage("keystore password was incorrect")
+                .cause().hasMessage("keystore password was incorrect")
                 .hasRootCauseExactlyInstanceOf(UnrecoverableKeyException.class)
-                .getRootCause().hasMessageStartingWith("failed to decrypt safe contents entry");
+                .rootCause().hasMessageStartingWith("failed to decrypt safe contents entry");
     }
     
     @Test
@@ -181,7 +181,7 @@ class SimpleSSLContextTest extends BaseTestSupport {
         }, GenericKeyStoreException.class);
         
         assertThat(ex).hasRootCauseExactlyInstanceOf(BadPaddingException.class)
-                .getRootCause()
+                .rootCause()
                 .hasMessageStartingWith("Given final block not properly padded");
     }
     
@@ -195,7 +195,7 @@ class SimpleSSLContextTest extends BaseTestSupport {
         }, GenericKeyStoreException.class);
         
         assertThat(ex).hasRootCauseExactlyInstanceOf(InvalidKeyException.class)
-                .getRootCause()
+                .rootCause()
                 .hasMessageContaining("DerValue.getBigIntegerInternal, not expected 48");
     }
     

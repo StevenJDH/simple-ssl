@@ -42,7 +42,7 @@ class GenericKeyStoreExceptionTest {
 
     @Test
     @DisplayName("Should have message and no cause when thrown with String arg.")
-    void Sould_HaveMessageAndNoCause_When_ThrownWithStringArg() {
+    void Should_HaveMessageAndNoCause_When_ThrownWithStringArg() {
         assertThatExceptionOfType(GenericKeyStoreException.class)
                 .isThrownBy(() -> { throw new GenericKeyStoreException(TEST_MESSAGE); })
                 .withMessage(TEST_MESSAGE)
@@ -51,7 +51,7 @@ class GenericKeyStoreExceptionTest {
 
     @Test
     @DisplayName("Should have message and cause when thrown with all args.")
-    void Sould_HaveMessageAndCause_When_ThrownWithAllArgs() {
+    void Should_HaveMessageAndCause_When_ThrownWithAllArgs() {
         assertThatExceptionOfType(GenericKeyStoreException.class)
                 .isThrownBy(() -> { throw new GenericKeyStoreException(TEST_MESSAGE, CAUSE_EX); })
                 .withMessage(TEST_MESSAGE)

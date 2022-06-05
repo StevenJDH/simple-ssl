@@ -223,7 +223,7 @@ class PEMContextImplTest extends BaseTestSupport {
         }, InvocationTargetException.class);
         
         assertThat(ex).hasRootCauseExactlyInstanceOf(KeyStoreException.class)
-                .getRootCause()
+                .rootCause()
                 .hasMessage("password can't be null");
     }
     
