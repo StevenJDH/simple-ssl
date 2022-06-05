@@ -5,7 +5,7 @@
     <groupId>io.github.stevenjdh</groupId>
     <artifactId>simple-ssl</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Simple SSL</name>
     <description>A lightweight library to easily create SSLContext instances from KeyStore and PEM files with different formats.</description>
     <url>https://github.com/StevenJDH/simple-ssl</url>
@@ -56,13 +56,13 @@
         <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
         <!-- Dependency versions -->
         <commons-lang3.version>3.12.0</commons-lang3.version>
-        <jackson-databind.version>2.13.1</jackson-databind.version>
+        <jackson-databind.version>2.13.3</jackson-databind.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
-        <assertj-core.version>3.22.0</assertj-core.version>
-        <mockito-junit-jupiter.version>4.3.1</mockito-junit-jupiter.version>
-        <wiremock-jre8-standalone.version>2.32.0</wiremock-jre8-standalone.version>
-        <slf4j-nop.version>1.7.35</slf4j-nop.version>
-        <maven-model.version>3.8.4</maven-model.version>
+        <assertj-core.version>3.23.1</assertj-core.version>
+        <mockito-junit-jupiter.version>4.6.1</mockito-junit-jupiter.version>
+        <wiremock-jre8-standalone.version>2.33.2</wiremock-jre8-standalone.version>
+        <slf4j-nop.version>1.7.36</slf4j-nop.version>
+        <maven-model.version>3.8.5</maven-model.version>
         <!-- Plugin Versions -->
         <maven-compiler.version>3.9.0</maven-compiler.version>
         <maven-surefire.version>2.22.2</maven-surefire.version>
