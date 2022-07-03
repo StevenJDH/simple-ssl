@@ -1,3 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  This file is part of Simple SSL <https://github.com/StevenJDH/simple-ssl>.
+  Copyright (C) 2021-2022 Steven Jenkins De Haro.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -62,18 +79,18 @@
         <mockito-junit-jupiter.version>4.6.1</mockito-junit-jupiter.version>
         <wiremock-jre8-standalone.version>2.33.2</wiremock-jre8-standalone.version>
         <slf4j-nop.version>1.7.36</slf4j-nop.version>
-        <maven-model.version>3.8.5</maven-model.version>
+        <maven-model.version>3.8.6</maven-model.version>
         <!-- Plugin Versions -->
-        <maven-compiler.version>3.9.0</maven-compiler.version>
+        <maven-compiler.version>3.10.1</maven-compiler.version>
         <maven-surefire.version>2.22.2</maven-surefire.version>
         <maven-failsafe.version>2.22.2</maven-failsafe.version>
-        <jacoco.version>0.8.7</jacoco.version>
+        <jacoco.version>0.8.8</jacoco.version>
         <git-commit-id-maven.version>5.0.0</git-commit-id-maven.version>
-        <jsonschema2pojo.version>1.1.1</jsonschema2pojo.version>
-        <maven-enforcer.version>3.0.0</maven-enforcer.version>
-        <nexus-staging.version>1.6.8</nexus-staging.version>
+        <jsonschema2pojo.version>1.1.2</jsonschema2pojo.version>
+        <maven-enforcer.version>3.1.0</maven-enforcer.version>
+        <nexus-staging.version>1.6.13</nexus-staging.version>
         <maven-gpg.version>3.0.1</maven-gpg.version>
-        <maven-javadoc.version>3.3.1</maven-javadoc.version>
+        <maven-javadoc.version>3.4.0</maven-javadoc.version>
         <maven-source.version>3.2.1</maven-source.version>
         <!-- JaCoCo Properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -323,6 +340,8 @@
                     <includeGetters>true</includeGetters>
                     <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
                     <useTitleAsClassname>true</useTitleAsClassname>
+                    <!-- Removed dot in default Delimiters as workaround for v0.8.8 property regression.  -->
+                    <refFragmentPathDelimiters>#/</refFragmentPathDelimiters>
                 </configuration>
                 <executions>
                     <execution>
