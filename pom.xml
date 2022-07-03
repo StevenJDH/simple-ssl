@@ -340,7 +340,8 @@
                     <includeGetters>true</includeGetters>
                     <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
                     <useTitleAsClassname>true</useTitleAsClassname>
-                    <!-- Removed dot in default Delimiters as workaround for v0.8.8 property regression.  -->
+                    <!-- Removed dot in default Delimiters as workaround for v1.1.2 property regression.  -->
+                    <!-- https://github.com/joelittlejohn/jsonschema2pojo/issues/1404  -->
                     <refFragmentPathDelimiters>#/</refFragmentPathDelimiters>
                 </configuration>
                 <executions>
