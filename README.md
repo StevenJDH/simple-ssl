@@ -31,8 +31,8 @@ Releases: [https://github.com/StevenJDH/simple-ssl/releases](https://github.com/
 * Support for overriding to provide different implementations.
 
 ## Prerequisites
-* Java 17+ ([Temurin/Adopt](https://adoptium.net)) OpenJDK
-* [Maven](https://maven.apache.org) 3.8.1+ CLI
+* Java 17+ ([Temurin/Adopt](https://adoptium.net)) OpenJDK.
+* Optional: [Maven](https://maven.apache.org) 3.8.4+ CLI for compiling.
 
 ## Installing the library
 The following shows you how to set up a maven project to make use of this library for both releases and snapshots.
