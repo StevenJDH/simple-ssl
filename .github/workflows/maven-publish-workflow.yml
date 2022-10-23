@@ -5,9 +5,11 @@ on:
     types: [created]
 
 env:
-  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version
-  # TODO: Remove nexus-staging-maven-plugin workaround after OSSRH-66257, NEXUS-26993 are fixed, possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91
-  MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
+  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version -Dstyle.color=always
+  # This will suppress any downloads for dependencies and plugins or upload messages that would clutter the console log.
+  # Opting for this approach because --no-transfer-progress or -ntp may be suppressing even warning and error messages.
+  # TODO: Remove nexus-staging-maven-plugin workaround (--add-opens) after OSSRH-66257, NEXUS-26993 are fixed, possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91
+  MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
 jobs:
   publish:
@@ -27,10 +29,10 @@ jobs:
           architecture: x64
 
       - name: Build with Maven
-        run: chmod +x ./mvnw && ./mvnw package
+        run: chmod +x ./mvnw && ./mvnw $MAVEN_CLI_OPTS package
 
       - name: Publish to GitHub Packages
-        run: ./mvnw -DskipTests deploy -Pgithub
+        run: ./mvnw $MAVEN_CLI_OPTS -DskipTests deploy -Pgithub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -53,7 +55,7 @@ jobs:
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Publish to Apache Maven Central
-        run: ./mvnw -DskipTests deploy -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Psonatype
+        run: ./mvnw $MAVEN_CLI_OPTS -DskipTests deploy -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Psonatype
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}

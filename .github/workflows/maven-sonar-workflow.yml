@@ -19,7 +19,10 @@ on:
     types: [opened, synchronize, reopened] # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request
 
 env:
-  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version
+  # This will suppress any downloads for dependencies and plugins or upload messages that would clutter the console log.
+  # Opting for this approach because --no-transfer-progress or -ntp may be suppressing even warning and error messages.
+  MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN
+  MAVEN_CLI_OPTS: --batch-mode --errors --fail-at-end --show-version -Dstyle.color=always
 
 jobs:
   build:
@@ -54,14 +57,14 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Maven Package # Using JVM mode.
-      run: chmod +x ./mvnw && ./mvnw -DskipTests clean package
+      run: chmod +x ./mvnw && ./mvnw $MAVEN_CLI_OPTS -DskipTests clean package
 
     - name: Maven Test and SonarCloud
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any.
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        ./mvnw verify sonar:sonar \
+        ./mvnw $MAVEN_CLI_OPTS verify sonar:sonar \
           -Dsonar.projectKey="StevenJDH_simple-ssl" \
           -Dsonar.organization="stevenjdh" \
           -Dsonar.host.url="https://sonarcloud.io" \
