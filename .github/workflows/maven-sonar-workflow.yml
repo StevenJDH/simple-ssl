@@ -30,27 +30,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         # Disabling shallow clone is recommended for improving relevancy.
         fetch-depth: 0
 
+    # Step also needed to avoid issues with sonarscanner and preinstalled Java 11.
     - name: Install Temurin OpenJDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: 17
         distribution: 'temurin'
         architecture: x64
 
     - name: Cache SonarCloud Packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
 
     - name: Cache Maven Packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -68,4 +69,4 @@ jobs:
           -Dsonar.projectKey="StevenJDH_simple-ssl" \
           -Dsonar.organization="stevenjdh" \
           -Dsonar.host.url="https://sonarcloud.io" \
-          -Dsonar.login=$SONAR_TOKEN
+          -Dsonar.token=$SONAR_TOKEN
