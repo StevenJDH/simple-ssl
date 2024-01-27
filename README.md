@@ -14,7 +14,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=coverage)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=ncloc)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
-![Maintenance](https://img.shields.io/maintenance/yes/2022)
+![Maintenance](https://img.shields.io/maintenance/yes/2024)
 ![GitHub](https://img.shields.io/github/license/StevenJDH/simple-ssl)
 
 Simple SSL is a lightweight library to easily create SSLContext instances from KeyStore and PEM files with different formats. Similar to how the native HttpClient works, the library makes use of the builder pattern to expose optional methods that can be used to customize a context without having to constantly rewrite the same blocks of code that would otherwise be required to do the same for many projects. With the resulting context, a secure connection can be established between a client and a server with or without mutual authentication (mTLS) to safeguard sensitive information.
@@ -253,17 +253,10 @@ Announcements of new releases and other topics of interest will be shared via th
 
 ## Want to show your support?
 
-|Method       | Address                                                                                                    |
-|------------:|:-----------------------------------------------------------------------------------------------------------|
-|PayPal:      | [https://www.paypal.me/stevenjdh](https://www.paypal.me/stevenjdh "Steven's Paypal Page")                  |
-|Bitcoin:     | 3GyeQvN6imXEHVcdwrZwKHLZNGdnXeDfw2                                                                         |
-|Litecoin:    | MAJtR4ccdyUQtiiBpg9PwF2AZ6Xbk5ioLm                                                                         |
-|Ethereum:    | 0xa62b53c1d49f9C481e20E5675fbffDab2Fcda82E                                                                 |
-|Dash:        | Xw5bDL93fFNHe9FAGHV4hjoGfDpfwsqAAj                                                                         |
-|Zcash:       | t1a2Kr3jFv8WksgPBcMZFwiYM8Hn5QCMAs5                                                                        |
-|PIVX:        | DQq2qeny1TveZDcZFWwQVGdKchFGtzeieU                                                                         |
-|Ripple:      | rLHzPsX6oXkzU2qL12kHCH8G8cnZv1rBJh<br />Destination Tag: 2357564055                                        |
-|Monero:      | 4GdoN7NCTi8a5gZug7PrwZNKjvHFmKeV11L6pNJPgj5QNEHsN6eeX3D<br />&#8618;aAQFwZ1ufD4LYCZKArktt113W7QjWvQ7CWDXrwM8yCGgEdhV3Wt|
+|Method          | Address                                                                                   |
+|---------------:|:------------------------------------------------------------------------------------------|
+|PayPal:         | [https://www.paypal.me/stevenjdh](https://www.paypal.me/stevenjdh "Steven's Paypal Page") |
+|Cryptocurrency: | [Supported options](https://github.com/StevenJDH/StevenJDH/wiki/Donate-Cryptocurrency)    |
 
 
 // Steven Jenkins De Haro ("StevenJDH" on GitHub)
