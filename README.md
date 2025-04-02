@@ -14,7 +14,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=coverage)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=StevenJDH_simple-ssl&metric=ncloc)](https://sonarcloud.io/dashboard?id=StevenJDH_simple-ssl)
-![Maintenance](https://img.shields.io/maintenance/yes/2024)
+![Maintenance](https://img.shields.io/badge/yes-4FCA21?label=maintained&style=flat)
 ![GitHub](https://img.shields.io/github/license/StevenJDH/simple-ssl)
 
 Simple SSL is a lightweight library to easily create SSLContext instances from KeyStore and PEM files with different formats. Similar to how the native HttpClient works, the library makes use of the builder pattern to expose optional methods that can be used to customize a context without having to constantly rewrite the same blocks of code that would otherwise be required to do the same for many projects. With the resulting context, a secure connection can be established between a client and a server with or without mutual authentication (mTLS) to safeguard sensitive information.
