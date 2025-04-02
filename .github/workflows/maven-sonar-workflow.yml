@@ -17,6 +17,12 @@ on:
     - '*.png'
     - 'docs/**'
     types: [opened, synchronize, reopened] # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'The reason for running the workflow.'
+        required: true
+        default: 'Manual run'
 
 env:
   # This will suppress any downloads for dependencies and plugins or upload messages that would clutter the console log.
@@ -53,7 +59,7 @@ jobs:
     - name: Cache Maven Packages
       uses: actions/cache@v4
       with:
-        path: ~/.m2
+        path: ~/.m2/repository
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
